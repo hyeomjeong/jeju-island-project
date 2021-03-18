@@ -1,0 +1,42 @@
+.store-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10%;
+}
+hr{
+    width: 100%;
+    border: solid black;
+}
+.store-detail-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.store-name{
+    font-weight: bold;
+    font-size: x-large;
+    margin: 0%;
+}
+
+.store-phone{
+    font-size: small;
+    margin: 0%;
+}
+
+.store-address{
+    font-size: small;
+    margin: 0%;
+}
+
+.store-tags{
+    color: gray;
+    font-size: large;
+    font-style: italic;
+    margin: 0%;
+}
+
+.menu-info{
+    display: flex;
+    justify-content: space-between;
+}
