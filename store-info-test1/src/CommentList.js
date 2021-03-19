@@ -5,15 +5,17 @@ import Comment from './Comment';
 export default class CommentList extends Component{
     static defaultProps = {
         data: []
-    };
+    }
 
     render(){
         const { data } = this.props;
         const list = data.map(
-            (info, index) => <Comment key={index} name={info.name} date={info.date} contnent={info.contnent}/>
+            (info, index) => <Comment key={index} name={info.name} date={info.date} content={info.content}/>
         );
         return(
-            {list}
+            <div>
+                {list}
+            </div>
         );
     }
 }

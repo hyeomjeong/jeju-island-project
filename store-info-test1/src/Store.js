@@ -69,14 +69,40 @@ export default class Store extends Component{
             {
                 name: "조현팔",
                 date: "2021-03-18",
-                content: "아주 맛있습니다. 츄베릅."
+                content: "맛.이. 좃슴니다.",
             },
             {
                 name: "죠죠킹",
                 date: "2021-03-15",
-                content: "사장님이 당근을 좋아하시나봐요,,,? 그래도 맛은 있습니다~~"
+                content: "사장님이 당근을 좋아하시나봐요,,,? 그래도 맛은 있습니다~~",
             },
-        ]
+        ],
+        tempName: "",
+        tempContent: "", 
+    };
+
+    nickNameChange = (e) =>{
+        this.setState({
+            tempName: e.target.value
+        });
+    };
+    contentChange = (e) =>{
+        this.setState({
+            tempContent: e.target.value
+        });
+    };
+
+    inputComment = () => {
+        let today = new Date();
+        const newComment = {
+            name: this.state.tempName, 
+            date: (today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate()),
+            content: this.state.tempContent
+        };
+        this.setState({
+            comments: this.state.comments.concat(newComment)
+        });
+        
     };
 
     render(){
@@ -91,17 +117,20 @@ export default class Store extends Component{
                     
                     <p className="store-tags">{this.state.tags}</p>
                 </div>
-                <hr></hr>
+                <hr className="middle-line"></hr>
                 <div className="menu-info-list">
                     <MenuList data={this.state.menus} />
                 </div>
-                <hr></hr>
-                {/*
-                <div className="comment-list">
+                <hr className="middle-line"></hr>
+                <div className="comment-info-list">
                     <CommentList data={this.state.comments} />
                 </div>
-                */}
                 
+                <div className="insert-comment">
+                    <input className="nickNmae-input" placeholder="닉네임" onChange={this.nickNameChange}></input>
+                    <textarea className="comment-textarea" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={this.contentChange}></textarea>
+                    <button className="insert-comment-btn" onClick={this.inputComment}>등록</button>
+                </div>
             </div>
         );
     }

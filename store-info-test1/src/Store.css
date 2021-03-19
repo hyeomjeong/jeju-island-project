@@ -4,9 +4,35 @@
     justify-content: center;
     margin: 10%;
 }
-hr{
+
+p{
+    margin: 0%;
+    font-size: small;
+}
+
+input::placeholder {
+    color: gray;
+    font-style: italic;
+}
+
+textarea::placeholder {
+    color: gray;
+    font-style: italic;
+}
+
+textarea{
     width: 100%;
-    border: solid black;
+    height: 80px;
+}
+
+.middle-line{
+    width: 100%;
+    border-top: 1px solid black;
+}
+.thin-line{
+    width: 100%;
+    border-top: 1px dashed black;
+    margin-top: 5%;
 }
 .store-detail-info{
     display: flex;
@@ -39,4 +65,29 @@ hr{
 .menu-info{
     display: flex;
     justify-content: space-between;
+    margin: 3% 0%;
+}
+
+.comment-info{
+    display: flex;
+    flex-direction: column;
+    margin: 3% 0%;
+}
+
+.comment-detail-info{
+    display: flex;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.comment-date{
+    font-size: xx-small;
+    color: gray;
+    margin-left: 1%;
+}
+
+.insert-comment-btn{
+    float: right;
+    background-color: black;
+    color: white;
 }

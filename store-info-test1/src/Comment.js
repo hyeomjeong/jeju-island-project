@@ -10,15 +10,14 @@ export default class Comment extends Component{
     };
 
     render(){
-        const {
-            name, date, content
-        } = this.props.info;
-
         return(
             <div className="comment-info">
-                <p className="comment-name">{name}</p>
-                <p className="comment-date">{date}</p>
-                <p className="comment-content">{content}</p>
+                <div className="comment-detail-info">
+                    <p className="comment-name">{this.props.name}</p>
+                    <p className="comment-date">{this.props.date}</p>
+                </div>
+                <p className="comment-content">{this.props.content}</p>
+                <hr className="thin-line"></hr>
             </div>
         );
     };
