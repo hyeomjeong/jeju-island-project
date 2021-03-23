@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export default class Menu extends Component{
-    static defaultProps = {
-        info: {
-            name: "메뉴명",
-            price: 0
-        }
-    };
 
-    render(){
-        return(
-            <div className="menu-info">
-                <p className="menu-name">{this.props.name}</p>
-                <p className="menu-price">{this.props.price}원</p>
-            </div>
-        );
-    }
+const Menu = (props) => {
+    const { name, price } = props;
+    return(
+        <div className="menu-info">
+                <p className="menu-name">{name}</p>
+                <p className="menu-price">{price}원</p>
+        </div>
+    );
 }
+
+Menu.defaultProps = {
+    name: "",
+    price: 0
+};
+
+export default Menu;

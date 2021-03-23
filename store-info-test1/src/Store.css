@@ -1,93 +1,99 @@
-.store-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 10%;
+.store-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10%;
 }
 
-p{
-    margin: 0%;
-    font-size: small;
+p {
+  margin: 0%;
+  font-size: small;
 }
 
 input::placeholder {
-    color: gray;
-    font-style: italic;
+  color: gray;
+  font-style: italic;
 }
 
 textarea::placeholder {
-    color: gray;
-    font-style: italic;
+  color: gray;
+  font-style: italic;
 }
 
-textarea{
-    width: 100%;
-    height: 80px;
+textarea {
+  width: 100%;
+  height: 80px;
 }
 
-.middle-line{
-    width: 100%;
-    border-top: 1px solid black;
+.middle-line {
+  width: 100%;
+  border-top: 1px solid black;
 }
-.thin-line{
-    width: 100%;
-    border-top: 1px dashed black;
-    margin-top: 5%;
+.thin-line {
+  width: 100%;
+  border-top: 1px dashed black;
+  margin-top: 5%;
 }
-.store-detail-info{
-    display: flex;
-    flex-direction: column;
-}
-
-.store-name{
-    font-weight: bold;
-    font-size: x-large;
-    margin: 0%;
+.store-detail-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.store-phone{
-    font-size: small;
-    margin: 0%;
+.store-name {
+  font-weight: bold;
+  font-size: x-large;
+  margin: 0%;
 }
 
-.store-address{
-    font-size: small;
-    margin: 0%;
+.store-phone {
+  font-size: small;
+  margin: 0%;
 }
 
-.store-tags{
-    color: gray;
-    font-size: large;
-    font-style: italic;
-    margin: 0%;
+.store-address {
+  font-size: small;
+  margin: 0%;
 }
 
-.menu-info{
-    display: flex;
-    justify-content: space-between;
-    margin: 3% 0%;
+.store-tags {
+  color: gray;
+  font-size: large;
+  font-style: italic;
+  margin: 0%;
 }
 
-.comment-info{
-    display: flex;
-    flex-direction: column;
-    margin: 3% 0%;
+.menu-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 3% 0%;
 }
 
-.comment-detail-info{
-    display: flex;
-    align-items: center;
-    margin-bottom: 3%;
+.comment-info {
+  display: flex;
+  flex-direction: column;
+  margin: 3% 0%;
 }
 
-.comment-date{
-    font-size: xx-small;
-    color: gray;
-    margin-left: 1%;
+.comment-detail-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3%;
 }
 
-.insert-comment-btn{
-    float: right;
-    background-color: black;
-    color: white;
+.comment-date {
+  font-size: xx-small;
+  color: gray;
+  margin-left: 1%;
+}
+
+.insert-comment-btn {
+  float: right;
+  background-color: black;
+  color: white;
+}
+
+.tag-btn {
+  background-color: black;
+  color: white;
+  margin: 0.3%;
 }

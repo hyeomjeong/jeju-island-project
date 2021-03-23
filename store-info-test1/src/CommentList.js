@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import Comment from './Comment';
 
-export default class CommentList extends Component{
-    static defaultProps = {
-        data: []
-    }
+const CommentList = (props) => {
+    const { data } = props;
+    const list = data.map(
+        (info, index) => <Comment key={index} name={info.name} date={info.date} content={info.content}/>
+    );
 
-    render(){
-        const { data } = this.props;
-        const list = data.map(
-            (info, index) => <Comment key={index} name={info.name} date={info.date} content={info.content}/>
-        );
-        return(
-            <div>
-                {list}
-            </div>
-        );
-    }
+    return(
+        <div>
+            {list}
+        </div>
+    );
 }
+
+CommentList.defaultProps = {
+    data : []
+};
+
+export default CommentList;

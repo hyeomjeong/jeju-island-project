@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import TagList from './TagList';
 
-export default class Tag extends Component{
+const Tag = (props) =>{
+    const { data } = props;
 
-    render(){
+    
+    // click 시 해당 태그 목록 페이지로 이동
+    const clickBTN = () => {
         return(
-            <div>
-                <button className="tag-btn">{this.props.value}</button>
-            </div>
+            <TagList tag={data}/>
         );
-    }
-}
+    };
+
+    return(
+        <button className="tag-btn" onClick={clickBTN}>#{data}</button>
+    );
+};
+
+Tag.defaultProps = {
+    tag: ""
+};
+
+export default Tag;
