@@ -80,6 +80,17 @@ textarea {
   margin-bottom: 3%;
 }
 
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  width: 22px;
+  height: 22px;
+  float: right;
+}
+
 .comment-date {
   font-size: xx-small;
   color: gray;

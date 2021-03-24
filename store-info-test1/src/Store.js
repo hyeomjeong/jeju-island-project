@@ -17,7 +17,7 @@ const Store = (props) =>{
             comments: comments.concat(newComment)
         });
     };
-    
+
     const tagList = tags.map(
         (info, index) => <Tag key={index} data={info} />
     );
@@ -39,7 +39,7 @@ const Store = (props) =>{
             </div>
             <hr className="middle-line"></hr>
             <div className="comment-info-list">
-                <CommentList data={comments} />
+                <CommentList data={comments}/>
             </div>
             <div className="insert-comment">
                 <InputComment inputComment={inputComment}/>
