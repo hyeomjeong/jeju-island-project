@@ -1,4 +1,18 @@
-.main-page{
-    display: flex;
-    justify-content: center;
+.main-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.explanation-p {
+  font-size: 13px;
+  margin: 0%;
 }

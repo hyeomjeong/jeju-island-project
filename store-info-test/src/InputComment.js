@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 
 const InputComment = (props) => {
 
-
     const [ comment, setComment ] = useState({
         name: "",
         date: "",
         content: ""
     });
-
 
     const { name, date, content } = comment;
 
@@ -28,7 +26,22 @@ const InputComment = (props) => {
         });
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter"){
+            inputComment();
+        }
+    }
+
     const inputComment = () =>{
+        if(comment.content === ""){
+            alert("내용을 입력하십시오!!");
+            return;
+        }
+        if(comment.name === ""){
+            alert("닉네임을 입력하십시오!!");
+            return;
+        }
+
         var today = new Date();
         setComment(comment.date = (today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate()));
         props.inputComment(comment);

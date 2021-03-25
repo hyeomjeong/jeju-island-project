@@ -4,20 +4,19 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 const Score = (props) => {
-    const [ score, setScore ] = useState(props);
-
+    const score = props.data;
+    const starList = score.map( 
+        (num, index) => num === 1? <StarIcon></StarIcon> : (num === 0.5? <StarHalfIcon></StarHalfIcon> : <StarBorderIcon></StarBorderIcon>)
+        );
     return(
         <div>
-            {score - 1 >= 0 || <StarIcon></StarIcon>}
-            {score === 0.5 || <StarHalfIcon></StarHalfIcon>}
-            {score === 0 || <StarBorderIcon></StarBorderIcon>}
-            setScore(score = score-1);
+            {starList}
         </div>
     );
 }
 
 Score.defaultProps = {
-    score: 0
+    score: [0,0,0,0,0]
 };
 
 export default Score;

@@ -3,20 +3,24 @@ import './Store.css';
 
 import MenuList from './MenuList';
 import CommentList from './CommentList';
-import InputComment from './InputComment';
+import Score from './Score';
 import Tag from './Tag';
+
+// 등록되긴 하는데 화면에 출력이 안되는 것 같늠 해당 부분 수정 요망.
 
 // function 
 const Store = (props) =>{
     const [ store_info, setStoreInfo ] = useState(props);
-    const { name, score, phone, address, tags, menus, comments } = store_info;
-    
-    const inputComment = (newComment) => {
+
+    const setComment = (newComments) => {
+        // console.log(newComment);
         setStoreInfo({
             ...store_info,
-            comments: comments.concat(newComment)
+            comments: newComments
         });
     };
+
+    const { name, score, phone, address, tags, menus, comments } = store_info;
 
     const tagList = tags.map(
         (info, index) => <Tag key={index} data={info} />
@@ -26,7 +30,9 @@ const Store = (props) =>{
         <div className="store-info">
             <div className="store-detail-info">
                 <h1 className="store-name">{name}</h1>
-                <div className="score-star">{score}</div>
+                <div className="star-score">
+                    <Score data={score}/>
+                </div>
                 <p className="store-phone">{phone}</p>
                 <p className="store-address">{address}</p>
                 <div classname="tags">
@@ -38,12 +44,9 @@ const Store = (props) =>{
                 <MenuList data={menus} />
             </div>
             <hr className="middle-line"></hr>
-            <div className="comment-info-list">
-                <CommentList data={comments}/>
-            </div>
-            <div className="insert-comment">
-                <InputComment inputComment={inputComment}/>
-            </div>      
+            <div className="comment-list">
+                <CommentList data={comments} setComment={setComment}/>
+            </div>           
         </div>
     );
 
@@ -51,7 +54,7 @@ const Store = (props) =>{
 
 Store.defaultProps = {
     name: "현구녕네",
-    score: 5,
+    score: [1,1,1,1,0.5],
     phone: "010-6641-6673",
     address: "경상북도 구미시 거의동 387-7번지 제니스H 201호",
     tags: ["food", "korea", "cozy"],

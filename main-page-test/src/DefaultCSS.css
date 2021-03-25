@@ -1,0 +1,14 @@
+button {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map {
+  width: 90%;
+  height: 600px;
+  position: relative;
+  margin-top: 5%;
+}
