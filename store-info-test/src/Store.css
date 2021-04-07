@@ -1,3 +1,7 @@
+.star {
+  color: blue;
+}
+
 .store-info {
   display: flex;
   flex-direction: column;

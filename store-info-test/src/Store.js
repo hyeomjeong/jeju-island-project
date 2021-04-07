@@ -35,7 +35,7 @@ const Store = (props) =>{
                 </div>
                 <p className="store-phone">{phone}</p>
                 <p className="store-address">{address}</p>
-                <div classname="tags">
+                <div className="tags">
                     {tagList}
                 </div>
             </div>
@@ -54,10 +54,10 @@ const Store = (props) =>{
 
 Store.defaultProps = {
     name: "현구녕네",
-    score: [1,1,1,1,0.5],
+    score: 4.5,
     phone: "010-6641-6673",
     address: "경상북도 구미시 거의동 387-7번지 제니스H 201호",
-    tags: ["food", "korea", "cozy"],
+    tags: ["식당", "한식",  "거의동"],
 
     menus: [
         {
