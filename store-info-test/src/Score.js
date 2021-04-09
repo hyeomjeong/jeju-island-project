@@ -1,25 +1,21 @@
 import React from 'react';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 const Score = (props) => {
     var score = props.data;
     
     const list = [];
-    
     for (var i = 0; i < 5; i++){
         if (score === 0){
-            list.push(<StarBorderIcon></StarBorderIcon>);
+            list.push(<i class={props.font}>star_outline</i>);
         }
            
         else if(score === 0.5){
-            list.push(<StarHalfIcon></StarHalfIcon>);
+            list.push(<i class={props.font}>star_half</i>);
             score = 0;
         }
         else{
             //console.log(score);
-            list.push(<StarIcon></StarIcon>);
+            list.push(<i class={props.font}>star</i>);
             score = score - 1;
         }
         

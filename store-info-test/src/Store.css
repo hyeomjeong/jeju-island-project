@@ -1,5 +1,14 @@
-.star {
-  color: blue;
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
 }
 
 .store-info {
@@ -62,7 +71,6 @@ textarea {
 .store-tags {
   color: gray;
   font-size: large;
-  font-style: italic;
   margin: 0%;
 }
 
@@ -80,8 +88,12 @@ textarea {
 
 .comment-detail-info {
   display: flex;
-  align-items: center;
   margin-bottom: 3%;
+  align-items: center;
+}
+
+.comment-rating {
+  margin-left: 1%;
 }
 
 .delete-btn {
@@ -111,4 +123,10 @@ textarea {
   background-color: black;
   color: white;
   margin: 0.3%;
+}
+
+.comment-input-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }

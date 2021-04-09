@@ -24,7 +24,7 @@ const CommentList = (props) => {
         (info, index) => 
         <div> 
             <button className="delete-btn" onClick={() => deleteComment(index)}><ClearIcon></ClearIcon> </button>   
-            <Comment key={index} name={info.name} date={info.date} content={info.content}/>    
+            <Comment key={index} name={info.name} date={info.date} rating={info.rating} content={info.content}/>    
         </div>
         );
 
