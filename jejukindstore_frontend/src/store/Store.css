@@ -1,0 +1,133 @@
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.store-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10%;
+}
+
+p {
+  margin: 0%;
+  font-size: small;
+}
+
+input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+textarea::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+}
+
+.middle-line {
+  width: 100%;
+  border-top: 1px solid black;
+}
+.thin-line {
+  width: 100%;
+  border-top: 1px dashed black;
+  margin-top: 5%;
+}
+
+.store-detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-name {
+  font-weight: bold;
+  font-size: x-large;
+  margin: 0%;
+}
+
+.store-phone {
+  font-size: small;
+  margin: 0%;
+}
+
+.store-address {
+  font-size: small;
+  margin: 0%;
+}
+
+.store-tags {
+  color: gray;
+  font-size: large;
+  margin: 0%;
+}
+
+.menu-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 3% 0%;
+}
+
+.comment-info {
+  display: flex;
+  flex-direction: column;
+  margin: 3% 0%;
+}
+
+.comment-detail-info {
+  display: flex;
+  margin-bottom: 3%;
+  align-items: center;
+}
+
+.comment-rating {
+  margin-left: 1%;
+}
+
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  width: 22px;
+  height: 22px;
+  float: right;
+}
+
+.comment-date {
+  font-size: xx-small;
+  color: gray;
+  margin-left: 1%;
+}
+
+.insert-comment-btn {
+  float: right;
+  background-color: black;
+  color: white;
+}
+
+.tag-btn {
+  background-color: black;
+  color: white;
+  margin: 0.3%;
+}
+
+.comment-input-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
+}

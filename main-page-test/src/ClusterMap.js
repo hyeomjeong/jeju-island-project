@@ -1,9 +1,58 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 const { kakao } = window;
 
-const Map = ({searchPlace}) => {
-    const stores = [
+
+const ClustererMap = (props) => {
+    const [stores, setStores] = useState(props.positions);
+
+    useEffect(() => {
+        // 지도 띄우는 코드
+        var container = document.getElementById('clustererMap');
+        var options = {
+            center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표 
+            level : 14 // 지도의 확대 레벨 
+        };
+
+        var map = new kakao.maps.Map(container, options);
+        
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minLevel: 10, // 클러스터 할 최소 지도 레벨
+            disableClickZoom: true // click 시 zoom 
+        });
+        // console.log(stores);
+        const markers = stores.map(
+            (info, index) => (new kakao.maps.Marker({
+                position : new kakao.maps.LatLng(info.lat, info.lng)
+            }))
+        );
+        // console.log(markers);
+        clusterer.addMarkers(markers);
+
+        kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+
+            // 현재 지도 레벨에서 1레벨 확대한 레벨
+            var level = map.getLevel()-1;
+    
+            // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+            map.setLevel(level, {anchor: cluster.getCenter()});
+        });
+    },
+    [stores]);
+
+    
+    
+    return(
+        <div id="clustererMap" className="map">
+        </div>
+        
+    );
+}
+
+ClustererMap.defaultProps = {
+    positions: [
         {
         lat: 37.27943075229118,
         lng: 127.01763998406159
@@ -508,92 +557,7 @@ const Map = ({searchPlace}) => {
         lat: 35.180032285898854,
         lng: 128.06954509175367
         }
-    ];
-
-    useEffect(() => {
-        let infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        // 지도 띄우는 코드
-        const container = document.getElementById('main-Map'); // 내가 고쳐쓸 수 있는 곳
-        const options = { center: new kakao.maps.LatLng(33.3616666, 126.5291666), level: 10 }; // 한라산 좌표
-        const map = new kakao.maps.Map(container, options); 
-        
-        var clusterer = new kakao.maps.MarkerClusterer({
-            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-            minLevel: 10, // 클러스터 할 최소 지도 레벨
-            disableClickZoom: true // click 시 zoom option 
-        });
-
-        /*
-        // CHANGE MARKER IMG
-        const imageSrc = './marker.png'; // 마커이미지의 주소    
-        const imageSize = new kakao.maps.Size(64, 69); // 마커이미지의 크기
-        const imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-        const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-        */
-
-        const markers = stores.map(
-            (info, index) => (new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(info.lat, info.lng),
-                // image: markerImage
-            })
-            )
-        );
-
-        clusterer.addMarkers(markers);
-
-        kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-
-            // 현재 지도 레벨에서 1레벨 확대한 레벨
-            var level = map.getLevel()-1;
-    
-            // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
-            map.setLevel(level, {anchor: cluster.getCenter()});
-        });
-
-
-        // SEARCH 
-
-        // 키워드로 검색하기
-        const ps = new kakao.maps.services.Places();
-        ps.keywordSearch(searchPlace, placesSearchCB); // searchPlace는 props값. 내가 수정할 수 있는 곳 
-        
-        // 아래코드 그대로 사용해야함 
-        function placesSearchCB (data, status, pagination) {
-            if (status === kakao.maps.services.Status.OK) {
-                let bounds = new kakao.maps.LatLngBounds();
-                for (let i=0; i<data.length; i++) {
-                    displayMarker(data[i]);
-                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                }
-                map.setBounds(bounds);
-            }
-        } 
-        
-        // 아래코드는 그대로 사용해야함 
-        function displayMarker(place) {
-            let marker = new kakao.maps.Marker({
-                map: map,
-                position: new kakao.maps.LatLng(place.y, place.x),
-                // image: markerImage
-            });
-
-            kakao.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                infowindow.open(map, marker);
-            
-            });
-        }
-    }, [searchPlace]);
-
-
-    return(
-        <div className="map" id="main-Map">
-        </div>
-        
-    );
+    ]
 }
 
-
-export default Map;
+export default ClustererMap;

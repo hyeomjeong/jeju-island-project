@@ -1,10 +1,9 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Store from './store/Store';
 
-import MainPage from './MainPage';
-import ClustererMap from './ClusterMap';
 ReactDOM.render(
-  <MainPage />,
-  // <ClustererMap/>,
+  <Store />,
   document.getElementById('root')
 );

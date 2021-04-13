@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Star from './Star';
+import Star from '../Star';
 
 const InputComment = (props) => {
 
