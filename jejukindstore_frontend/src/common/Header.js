@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './common.css';
-import TagBtns from './TagBtns';
 
 import UpIcon from '@material-ui/icons/ExpandLess';
 import DownIcon from '@material-ui/icons/ExpandMore';
@@ -12,45 +11,37 @@ const Header = (props) => {
     const [inputs, setInputs] = useState([]);
 
     const onChange = (e) => {
-        if(e.target.checked){
-            const newInputs = inputs.concat(e.target.name);
-            setInputs(newInputs);
-        }
-        else{
-            const idx = inputs.findIndex(function(item) {
-                return item === e.target.name}); // findIndex = find + indexOf 
-            let tempArray = inputs;
-            if (idx > -1) 
-                tempArray.splice(idx, 1);
-            setInputs(tempArray);
-        }
-            //removeTag(e);
+        if(e.target.checked)
+            setInputs(inputs.concat(e.target.name));
+        else
+            removeInput(e.target.name);
+    };
+
+    const removeInput = (name) => {
+        const temp = inputs.slice();
+        const idx = temp.findIndex(function(item) {
+            return item === name
+        });
+        if(idx > -1)
+            temp.splice(idx, 1);
+        setInputs(temp);
+        console.log("");
     }
 
-    const removeTag = (name) => {
-        // console.log(e.target.name);
-        const idx = inputs.findIndex(function(item) {
-            return item === name}); // findIndex = find + indexOf 
-        let tempArray = inputs;
-        console.log(tempArray);
-        if (idx > -1) 
-            tempArray.splice(idx, 1);
-        // console.log(tempArray);
-        setInputs(tempArray);
-        console.log(inputs);
-    }
+    const btnList = inputs.map((info, index) => 
+        <button className="tag-btn" key={index} onClick={() => {removeInput(info)}} name={info}>#{info}</button>
+    );
 
     return(
-        <div className="header">
+        <div className="common-header">
             <div>
                 <button className="login-out-btn">{sessionID === "" ? "LOGIN" : "LOGOUT"}</button>
             </div>
             <div className="search-box">
-                <TagBtns data={inputs} removeTag={removeTag}/>
+                <div className="tag-box"> 
+                    {btnList}
+                </div>
                 <button className="detail-search-btn" onClick={() => {setCheck(!isChecked)}}>{isChecked? <UpIcon /> : <DownIcon />}</button>
-            </div>
-            <div>
-                <input type="checkbox" name="test" onChange={onChange}></input> test
             </div>
                 {isChecked ? <CheckBox onChange={onChange} category={props.category} location={props.location}/> : ''}
         </div>
@@ -58,25 +49,38 @@ const Header = (props) => {
 };
 
 const CheckBox = (props)=> {
-    // const [categories, setCategories] = useState(props.category);
-    // const [locations, setLocations] = useState(props.location);
     const category = props.category;
     const location = props.location;
 
     const categoryBoxes = category.map(
         (info, index) => 
         <div key={index}>
-            <input type="checkbox" name={info} onChange={props.onChange}></input> {info}
+            <input id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
         </div>
     );
+    const locationBoxes = location.map(
+        (info, index) => 
+        <div key={index}>
+            <input id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
+        </div>
+    );
+
 
     return(
-        <div className="">
-           {categoryBoxes}
+        <div className="search-info-detail">
+            <p className="category-p">🍜업종별✨</p>
+            <div className="checkBoxies">
+                {categoryBoxes}
+            </div>
+            <hr className="middle-line"></hr>
+            <p className="category-p">🌴지역별🤸‍♀️</p>
+            <div className="checkBoxies">
+                {locationBoxes}
+            </div>
         </div>
     );
 
-}
+};
 
 Header.defaultProps = {
     category: ["한식", "중식", "양식", "일식", "숙박", "이미용", "4점이상"],
