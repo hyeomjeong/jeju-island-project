@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Comment.css';
+import './comment.css';
 import Score from '../Score';
 
 const Comment = (props) => {

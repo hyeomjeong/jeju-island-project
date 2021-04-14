@@ -11,11 +11,12 @@
   font-size: 48px;
 }
 
-.store-info {
+button {
+  background-color: black;
+  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin: 10%;
+  align-items: center;
 }
 
 p {
@@ -46,4 +47,25 @@ textarea {
   width: 100%;
   border-top: 1px dashed black;
   margin-top: 5%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-out-btn {
+  float: right;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.tag-box {
+  width: 33%;
+  height: auto;
+  border: 1px solid black;
 }

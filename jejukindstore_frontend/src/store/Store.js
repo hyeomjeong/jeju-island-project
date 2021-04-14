@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './src/common/common.css';
+import '../common/common.css';
 import './Store.css';
 
 import MenuList from './menu/MenuList';
