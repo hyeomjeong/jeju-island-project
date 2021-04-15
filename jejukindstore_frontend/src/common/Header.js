@@ -8,75 +8,96 @@ const Header = (props) => {
 
     const [isChecked, setCheck] = useState(false);
     const [sessionID, setSessionID] = useState("");
-    const [inputs, setInputs] = useState([]);
+    const [inputs, setInputs] = useState([]); 
 
     const onChange = (e) => {
-        if(e.target.checked)
+        if(e.target.checked){
             setInputs(inputs.concat(e.target.name));
+        }
         else
             removeInput(e.target.name);
     };
 
     const removeInput = (name) => {
-        const temp = inputs.slice();
-        const idx = temp.findIndex(function(item) {
+        const tempInputs = inputs.slice();
+        const idx = tempInputs.findIndex(function(item) {
             return item === name
         });
         if(idx > -1)
-            temp.splice(idx, 1);
-        setInputs(temp);
-        console.log("");
+            tempInputs.splice(idx, 1);
+        setInputs(tempInputs);
+    }
+
+    const removeAll = () => {
+        setInputs([]);
+    }
+
+    // submit INPUTS to BackEND
+    const API = () => {
+        console.log("submit tags");
     }
 
     const btnList = inputs.map((info, index) => 
         <button className="tag-btn" key={index} onClick={() => {removeInput(info)}} name={info}>#{info}</button>
     );
-
+   
     return(
-        <div className="common-header">
-            <div>
-                <button className="login-out-btn">{sessionID === "" ? "LOGIN" : "LOGOUT"}</button>
-            </div>
-            <div className="search-box">
-                <div className="tag-box"> 
-                    {btnList}
+        <div>
+            <button className="login-out-btn">{sessionID === "" ? "LOGIN" : "LOGOUT"}</button>
+            <div className="common-header">
+                <div className="search-box">
+                    <div className="tag-box"> 
+                        {btnList}
+                    </div>
+                    <button className="detail-search-btn" onClick={() => {setCheck(!isChecked)}}>{isChecked? <UpIcon /> : <DownIcon />}</button>
                 </div>
-                <button className="detail-search-btn" onClick={() => {setCheck(!isChecked)}}>{isChecked? <UpIcon /> : <DownIcon />}</button>
+                { isChecked && <div>
+                    <CheckBox inputs={inputs} onChange={onChange} category={props.category} location={props.location}/>
+                    <div className="search-btns">
+                        <button className="margin-btn" onClick={removeAll}>REMOVE ALL</button>
+                        <button className="margin-btn" onClick={API}>SEARCH</button>
+                    </div>  
+                </div>}
             </div>
-                {isChecked ? <CheckBox onChange={onChange} category={props.category} location={props.location}/> : ''}
         </div>
     );
 };
 
-const CheckBox = (props)=> {
+const CheckBox =(props) => {
+    const [inputs, setInputs] = useState(props.inputs);
+
+    useEffect(() => {
+        setInputs(props.inputs);
+    }, [props.inputs]);
+
     const category = props.category;
     const location = props.location;
 
-    const categoryBoxes = category.map(
+    const categoryBoxies = category.map(
         (info, index) => 
         <div key={index}>
-            <input id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
+            <input checked={inputs.includes(info)} id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
         </div>
     );
-    const locationBoxes = location.map(
+    const locationBoxies = location.map(
         (info, index) => 
         <div key={index}>
-            <input id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
+            <input checked={inputs.includes(info)} id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
         </div>
     );
-
 
     return(
         <div className="search-info-detail">
             <p className="category-p">🍜업종별✨</p>
             <div className="checkBoxies">
-                {categoryBoxes}
+                {categoryBoxies}
             </div>
             <hr className="middle-line"></hr>
             <p className="category-p">🌴지역별🤸‍♀️</p>
             <div className="checkBoxies">
-                {locationBoxes}
+                {locationBoxies}
             </div>
+            
         </div>
     );
 

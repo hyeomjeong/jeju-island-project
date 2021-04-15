@@ -52,6 +52,7 @@ textarea {
 .common-header {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .login-out-btn {
@@ -93,4 +94,15 @@ textarea {
   flex-direction: row;
   justify-content: center;
   font-size: small;
+}
+
+.search-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1%;
+}
+
+.margin-btn {
+  margin: 2px;
 }

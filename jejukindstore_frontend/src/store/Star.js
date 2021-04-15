@@ -27,9 +27,9 @@ const Star = (props) => {
     
     for(var i = 1; i <= 5; i++){
         if(i > hoverRating)
-            starRating.push(<StarBorderIcon id={i} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onMouseDown={onSaveRating}/>);
+            starRating.push(<StarBorderIcon key={i} id={i} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onMouseDown={onSaveRating}/>);
         else
-            starRating.push(<StarIcon id={i} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onMouseDown={onSaveRating}/>);
+            starRating.push(<StarIcon key={i} id={i} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onMouseDown={onSaveRating}/>);
     }
 
     return(

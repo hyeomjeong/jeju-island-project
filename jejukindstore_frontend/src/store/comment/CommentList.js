@@ -22,9 +22,9 @@ const CommentList = (props) => {
 
     const commentList = comments.map(
         (info, index) => 
-        <div> 
+        <div key={index}> 
             <button className="delete-btn" onClick={() => deleteComment(index)}><ClearIcon></ClearIcon> </button>   
-            <Comment key={index} name={info.name} date={info.date} rating={info.rating} content={info.content}/>    
+            <Comment name={info.name} date={info.date} rating={info.rating} content={info.content}/>    
         </div>
         );
 

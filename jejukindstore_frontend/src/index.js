@@ -1,16 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Store from './store/Store';
-import Header from './common/Header';
-ReactDOM.render(
-  <Header />,
-  document.getElementById('root')
-);
-/*
-ReactDOM.render(
-  <Store />,
-  document.getElementById('root')
-);
+import App from './App';
 
-*/
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);

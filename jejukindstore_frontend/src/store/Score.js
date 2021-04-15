@@ -6,16 +6,16 @@ const Score = (props) => {
     const list = [];
     for (var i = 0; i < 5; i++){
         if (score === 0){
-            list.push(<i class={props.font}>star_outline</i>);
+            list.push(<i className={props.font} key={i}>star_outline</i>);
         }
            
         else if(score === 0.5){
-            list.push(<i class={props.font}>star_half</i>);
+            list.push(<i className={props.font} key={i}>star_half</i>);
             score = 0;
         }
         else{
             //console.log(score);
-            list.push(<i class={props.font}>star</i>);
+            list.push(<i className={props.font} key={i}>star</i>);
             score = score - 1;
         }
         
