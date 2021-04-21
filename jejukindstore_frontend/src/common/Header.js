@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Login from '../member/Login';
 import SearchBox from '../searchBox/SearchBox';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './common.css';
 
 const Header = (props) => {
@@ -30,12 +30,12 @@ const Header = (props) => {
             <div className="common-header item">
             { user.sessionID === "" ? 
                 <div className="login-out-info">
-                    <button><Link to= '/Sign-in' className="links" login={login}>SIGN-IN</Link></button>
-                    <button><Link to= '/Login' className="links">LOGIN</Link></button>
+                    <button><Link to= '/member/sign-up' className="links">SIGN-UP</Link></button>
+                    <button><Link to= '/member/login' className="links">LOGIN</Link></button>
                 </div>
                     :
                 <div className="login-out-info">
-                    <button className="user-btn"><Link to="/My-page" className="links">{user.userID}</Link></button>
+                    <button className="user-btn"><Link to="/memeber/my-page" className="links">{user.userID}</Link></button>
                     <button className ="login-btn" onClick={logout}>LOGOUT</button>
                 </div> 
             }

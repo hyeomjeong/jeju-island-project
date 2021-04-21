@@ -5,7 +5,7 @@ import Header from './Header';
 import Main from '../map/Map';
 
 import Login from '../member/Login';
-import SignIn from '../member/SignIn';
+import SignUp from '../member/SignUp';
 
 import Store from '../store/Store';
 
@@ -13,14 +13,15 @@ export default () => {
     const [session, setSession] = useState("");
     return(
         <Router>
-            <Header session={session} />
+            <Header/>
             
             <Route exact path='/' component={Main}/>
 
-            <Route path='/Store' component={Store}/>
+            <Route path='/store/id' component={Store}/>
 
-            <Route path='/Login' component={Login} session={session} />
-            <Route path='/Sign-in' component={SignIn}/>
+            <Route path='/member/login' component={Login}/>
+            <Route path='/member/sign-up' component={SignUp}/>
+            
         </Router>
     );
 }

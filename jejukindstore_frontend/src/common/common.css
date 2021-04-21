@@ -93,3 +93,13 @@ textarea {
   color: red;
   font-size: x-small;
 }
+
+.collect-msg {
+  color: mediumseagreen;
+  font-size: x-small;
+}
+
+.links {
+  color: white;
+  text-decoration: none;
+}
