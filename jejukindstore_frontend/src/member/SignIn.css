@@ -1,0 +1,21 @@
+.sign-in-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sign-in {
+  display: flex;
+}
+
+.sign-in-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 110px;
+}
+
+.find-member-btn {
+  background-color: initial;
+  color: black;
+  border: none;
+}

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const FindMember = () => {
     const [choice, setChoice] = useState("");
-    const [user, setUser] =useState({
+    const [user, setUser] = useState({
         id: "",
         name: "",
 
@@ -18,8 +18,10 @@ const FindMember = () => {
 
             </div>
             <div>
+                {/*
                 <input name="name" value={}></input>
                 <input name={choice} value={}></input>
+                */}
             </div>
         </div>
         

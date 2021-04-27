@@ -1,13 +1,13 @@
-import React,{Component} from 'react';
+import React from 'react';
+
 import Routers from './common/Router'; 
-class App extends Component {
-  render() {
-      return (
+
+const App = () => {
+  return (
         <>
-        <Routers/>
+        <Routers />
         </>
-      );
-  }
+  );
 }
 
 

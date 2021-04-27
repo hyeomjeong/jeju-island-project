@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {Link} from 'react-router-dom';
 import ClearIcon from '@material-ui/icons/Clear';
 import Comment from './Comment';
 import InputComment from './InputComment';
@@ -22,7 +22,13 @@ const CommentList = (props) => {
 
     const commentList = comments.map(
         (info, index) => 
-        <div key={index}> 
+        <div key={index}>
+            {
+                info.store_id ? 
+                <Link to="/" className="links">{info.store_id}</Link>
+                :
+                ''
+            }
             <button className="delete-btn" onClick={() => deleteComment(index)}><ClearIcon></ClearIcon> </button>   
             <Comment name={info.name} date={info.date} rating={info.rating} content={info.content}/>    
         </div>

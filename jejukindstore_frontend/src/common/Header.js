@@ -1,43 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import Login from '../member/Login';
-import SearchBox from '../searchBox/SearchBox';
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { getAPI, deleteAPI } from '../common/API';
+import SearchBox from '../searchBox/SearchBox';
 import './common.css';
 
 const Header = (props) => {
-
-    const [user, setUser] = useState({
-        userID: "",
-        sessionID: ""
-    });
+    const [logStatus, setStatus] = useState(false);
     
-    const logout = () => setUser({userID: "", sessionID: ""});
-    const login = (userInfo) => setUser(userInfo);
+    const [user, setUser] = useState({
+        nickname: "",
+        email: "",
+        phone: ""
+    });
 
-    // submit INPUTS to BackEND
-    const API = () => {
-        console.log("submit tags");
+    useEffect(() => {
+        setStatus(props.data);
+        if(props.data){
+            setUser(getAPI("/api/v1/session/userData"));
+        }
     }
+    , [props.data]);
 
+    const signOut = () => {
+        deleteAPI("/api/v1/session");
+        window.sessionStorage.clear();
+        
+        setUser({
+            nickname: "", 
+            email: "", 
+            phone: ""
+        });
+        
+        setStatus(false);
+        props.check(window.sessionStorage.getItem("session"));
+    }
+   
     return(
         <div className="common-header">
             <div className="common-header item">
-                <h>🧚‍♂️JEJU-KIND-STORE🍊</h>
+                <button><Link to="/" className="links">🧚‍♂️JEJU-KIND-STORE🍊</Link></button>
             </div>
             <div className="common-header item">
                 <SearchBox />
             </div>
             <div className="common-header item">
-            { user.sessionID === "" ? 
-                <div className="login-out-info">
-                    <button><Link to= '/member/sign-up' className="links">SIGN-UP</Link></button>
-                    <button><Link to= '/member/login' className="links">LOGIN</Link></button>
-                </div>
-                    :
-                <div className="login-out-info">
-                    <button className="user-btn"><Link to="/memeber/my-page" className="links">{user.userID}</Link></button>
-                    <button className ="login-btn" onClick={logout}>LOGOUT</button>
+            { logStatus ? 
+                <div className="sign-in-out-info">
+                    <button className="user-btn"><Link to="/memeber/my-page" className="links">{user.nickname}</Link></button>
+                    <button className ="sign-btn" onClick={signOut}>SIGN OUT</button>
                 </div> 
+                :
+                <div className="sign-in-out-info">
+                    <button><Link to= '/member/sign-up' className="links">SIGN UP</Link></button>
+                    <button><Link to= '/member/sign-in' className="links">SIGN IN</Link></button>
+                </div>
             }
             </div>
         </div>

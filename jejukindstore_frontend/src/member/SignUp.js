@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 
 import useInput from '../c_Hooks/useInput';
-import {getAPI, postAPI, headAPI} from '../common/API';
+import { postAPI, headAPI } from '../common/API';
 
 import './SignUp.css';
 
 const SignUp = (props) =>{
+    const history = useHistory();
 
     const [isSuccess, setSuccess] = useState(false);
 
@@ -27,7 +28,8 @@ const SignUp = (props) =>{
 
     const {id, password, nickname, email, phone} = newMember;
 
-    function onChange(e){
+    const onChange = (e) => {
+        // console.log(e.target.name, "->" ,e.target.value);
         setMember(e);
         checkOverlap(e);
     }
@@ -115,36 +117,36 @@ const SignUp = (props) =>{
             { isSuccess ? 
                 <div className="sign-up-success">
                     <p>🙋‍♀️가입이 완료되었습니다🎉</p>
-                    <button><Link to = '/' className="links">HOME</Link></button>
+                    <button onClick={() => {history.goBack()}}>HOME</button>
                 </div>
                 :
                 <div className="sign-up-inputs">
-                <div className="sign-up-input">
-                    <p className="input-name">ID</p>
-                    <input name="id" value={id} onChange={onChange} onBlur={checkOverlap}></input>
-                    <p className={check.id && id !== ""? "collect-msg" : "warning-msg"}>{ id === "" ? "필수 정보입니다." : ( check.id ? "멋진 아이디군요!" : "이미 사용중인 아이디입니다.")}</p>
-                </div>
-                <div className="sign-up-input">
-                    <p className="input-name">PASSWORD</p>
-                    <input name="password" value={password} onChange={setMember} type="password"></input>
-                    <p className={password ? "collect-msg" : "warning-msg"}>{ password === "" ? "필수 정보입니다." : "강력한 암호입니다!"}</p>
-                </div>
-                <div className="sign-up-input">
-                    <p className="input-name">NICKNAME</p>
-                    <input name="nickname" value={nickname} onChange={onChange} onBlur={checkOverlap}></input>
-                    <p className={check.nickname? "collect-msg" : "warning-msg"}>{ nickname === "" ? "필수 정보입니다." : ( check.nickname ? '센스있는 닉네임이네요~' : "이미 사용중인 닉네임입니다.")}</p>
-                </div>
-                <div className="sign-up-input">
-                    <p className="input-name">E-MAIL</p>
-                    <input name="email" value={email} onChange={onChange} onBlur={checkOverlap}></input>
-                    <p className={check.email? "collect-msg" : "warning-msg"}>{ email === "" ? "필수 정보입니다." : ( check.email ? '올바른 형식입니다.' : "이미 사용중이거나 형식에 맞지 않는 이메일입니다.")}</p>
-                </div>
-                <div className="sign-up-input">
-                    <p className="input-name">PHONE</p>
-                    <input name="phone" value={phone} onChange={onChange} onBlur={checkOverlap} placeholder="숫자만 입력해주십시오."></input>
-                    <p className={check.phone? "collect-msg" : "warning-msg"}>{ phone === "" ? "필수 정보입니다." : ( check.phone ? '올바른 형식입니다.' : "이미 사용중이거나 형식에 맞지 않는 번호입니다.")}</p>
-                </div>
-                <button className="join-btn" onClick={join}>가입</button>
+                    <div className="sign-up-input">
+                        <p className="input-name">ID</p>
+                        <input name="id" value={id} onChange={onChange} onBlur={checkOverlap}></input>
+                        <p className={check.id && id !== ""? "collect-msg" : "warning-msg"}>{ id === "" ? "필수 정보입니다." : ( check.id ? "멋진 아이디군요!" : "이미 사용중인 아이디입니다.")}</p>
+                    </div>
+                    <div className="sign-up-input">
+                        <p className="input-name">PASSWORD</p>
+                        <input name="password" value={password} onChange={setMember} type="password"></input>
+                        <p className={password ? "collect-msg" : "warning-msg"}>{ password === "" ? "필수 정보입니다." : "강력한 암호입니다!"}</p>
+                    </div>
+                    <div className="sign-up-input">
+                        <p className="input-name">NICKNAME</p>
+                        <input name="nickname" value={nickname} onChange={onChange} onBlur={checkOverlap}></input>
+                        <p className={check.nickname? "collect-msg" : "warning-msg"}>{ nickname === "" ? "필수 정보입니다." : ( check.nickname ? '센스있는 닉네임이네요~' : "이미 사용중인 닉네임입니다.")}</p>
+                    </div>
+                    <div className="sign-up-input">
+                        <p className="input-name">E-MAIL</p>
+                        <input name="email" value={email} onChange={onChange} onBlur={checkOverlap}></input>
+                        <p className={check.email? "collect-msg" : "warning-msg"}>{ email === "" ? "필수 정보입니다." : ( check.email ? '올바른 형식입니다.' : "이미 사용중이거나 형식에 맞지 않는 이메일입니다.")}</p>
+                    </div>
+                    <div className="sign-up-input">
+                        <p className="input-name">PHONE</p>
+                        <input name="phone" value={phone} onChange={onChange} onBlur={checkOverlap} placeholder="숫자만 입력해주십시오."></input>
+                        <p className={check.phone? "collect-msg" : "warning-msg"}>{ phone === "" ? "필수 정보입니다." : ( check.phone ? '올바른 형식입니다.' : "이미 사용중이거나 형식에 맞지 않는 번호입니다.")}</p>
+                    </div>
+                    <button className="join-btn" onClick={join}>가입</button>
                 </div>
             }
         </div>
