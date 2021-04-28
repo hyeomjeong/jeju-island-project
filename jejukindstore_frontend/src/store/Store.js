@@ -4,7 +4,7 @@ import '../common/common.css';
 import './Store.css';
 
 import MenuList from './menu/MenuList';
-import CommentList from './comment/CommentList';
+import CommentList from '../comment/CommentList';
 import Score from './Score';
 import Tag from './tag/Tag';
 

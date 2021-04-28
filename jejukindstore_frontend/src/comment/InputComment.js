@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import useInput from '../c_Hooks/useInput';
 
-import Star from '../Star';
+import Star from '../store/Star';
 
 const InputComment = (props) => {
 
-    const [ comment, setComment ] = useState({
+    const [ comment, setComment ] = useInput({
         name: "",
         date: "",
         rating: 0,
@@ -12,14 +13,6 @@ const InputComment = (props) => {
     });
 
     const { name, date, rating, content } = comment;
-
-    const onChange = (e) => {
-        const { value, name } = e.target;
-        setComment({
-            ...comment,
-            [name]: value
-        });
-    };
 
     const onReset = () => {
         setComment({
@@ -84,13 +77,13 @@ const InputComment = (props) => {
     return (
         <div className="insert-comment">
             <div className="comment-input-head">
-                <input name="name" className="nickNmae-input" placeholder="닉네임" onChange={onChange} value={name}></input>
+                <input name="name" className="nickNmae-input" placeholder="닉네임" onChange={setComment} value={name}></input>
                 <div className="star-rating">
                     <Star data={rating} onSaveRating={onSaveRating} />
                 </div>
             </div>
             
-            <textarea name="content" className="comment-textarea" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={onChange} onKeyPress={handleKeyPress} value={content} ></textarea>
+            <textarea name="content" className="comment-textarea" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={setComment} onKeyPress={handleKeyPress} value={content} ></textarea>
             <button className="insert-comment-btn" onClick={inputComment} onKeyPress={handleKeyPress}>등록</button>
         </div>
     );

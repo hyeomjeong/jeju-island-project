@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+
 import {updateAPI} from '../common/API';
 
-import CommentList from '../store/comment/CommentList';
+import CommentList from '../comment/CommentList';
+import './MyPage.css';
 
 const MyPage = (props) => {
     // props로 내 댓글 목록, 회원 정보 받아오거나 여기서 처음에 받아옴 일단 defaultProps로 처리
@@ -16,29 +19,34 @@ const MyPage = (props) => {
     }
 
     return(
-        <div>
-            <div className="profile">
-                <h>PROFILE</h>
-                <div className="flex-row">
-                    <p className="info-type">🌸아이디🍒</p>
-                    <p className="my-info">{id}</p>
+        <div className="my-page">
+            <div className="center">
+                <h3>PROFILE</h3>
+                <div>
+                    <div className="flex-row">
+                        <p className="info-type">🌸아이디🍒</p>
+                        <p className="my-info">{id}</p>
+                    </div>
+                    <div className="flex-row">
+                        <p className="info-type">👾닉네임🤔</p>
+                        <p className="my-info">{nickname}</p>
+                    </div>
+                    <div className="flex-row">
+                        <p className="info-type">🔎휴대폰📞</p>
+                        <p className="my-info">{phone}</p>
+                    </div>
+                    <div className="flex-row">
+                        <p className="info-type">💻이메일📫</p>
+                        <p className="my-info">{email}</p>
+                    </div>
                 </div>
-                <div className="flex-row">
-                    <p className="info-type">👾닉네임🤔</p>
-                    <p className="my-info">{nickname}</p>
-                </div>
-                <div className="flex-row">
-                    <p className="info-type">🔎휴대폰📞</p>
-                    <p className="my-info">{phone}</p>
-                </div>
-                <div className="flex-row">
-                    <p className="info-type">💻이메일📫</p>
-                    <p className="my-info">{email}</p>
-                </div>
+                
+                <button className="modify-btn"><Link to="/member/modify" className="links">수정</Link></button>
             </div>
+            
             <hr className="middle-line"/>
             <div className="my-comment-list">
-                <CommentList data={my_comments} setComment={setComment}/>
+                <CommentList user={nickname} data={my_comments} setComment={setComment}/>
             </div>
         </div>
     );
