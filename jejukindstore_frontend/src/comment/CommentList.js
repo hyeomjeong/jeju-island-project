@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
-import InputComment from './InputComment';
 
 const CommentList = (props) => {
     const nickname = props.user;
     const [ comments, setComments ] = useState(props.data);
-    //console.log(comments);
 
+    useEffect(() => {
+        setComments(props.data);
+    }
+    ,[props.data]);
+
+    // delete comment
     const deleteComment = (c) =>{
-        const newComment = comments.filter((element) => element !== c);
-        setComments(newComment);
-        props.setComment(newComment);
+        const newComments = comments.filter((element) => element !== c);
+        // deleteAPI
+        // BE에서 다시 commentList GET 해올지 / 이 배열을 수정할지 고민
+        // setComments(newComments);
+        props.setComment(newComments);
     }
 
     const updateComment = (pk) => {
-        const newComment = comments.filter((info, index) => index !== pk);
-        setComments(newComment);
-        props.setComment(newComment);
-    }
-
-    /*
-    const inputComment = (newComment) => {
-        const newComments = comments.concat(newComment);
-        setComments(newComments)
+        const newComments = comments.filter((info, index) => index !== pk);
+        // setComments(newComments);
         props.setComment(newComments);
     }
-    */
+
     const commentList = comments.map(
         (info, index) => 
         <div key={index}>
@@ -36,9 +35,6 @@ const CommentList = (props) => {
     return(
         <div>
             {commentList}
-            {/*
-            <InputComment inputComment={inputComment}/>
-            */}
         </div>
     );
 }

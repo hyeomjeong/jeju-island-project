@@ -1,35 +1,37 @@
 import React from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { postAPI } from '../common/API';
 import useInput from '../c_Hooks/useInput';
+
 import './SignIn.css';
 
-const SignIn = (props) => {
+const SignIn = props => {
     const history = useHistory();
     const [user, setUser] = useInput({
-        userId: "",
-        userPassword: ""
+        username: "",
+        password: ""
     });
 
-    const {userId, userPassword} = user;
+    const {username, password} = user;
 
     async function signIn(){
         
-        if (userId === ""){
+        if (username === ""){
             alert("ID를 입력하십시오!!");
             return;
         }
-        if (userPassword === ""){
+        if (password === ""){
             alert("PASSWORD를 입력하십시오!!");
             return;
         }
+        
         // BackEnd - chk -> setSession
-        const res = await postAPI("/api/v1/session", user);
-        window.sessionStorage.setItem("session", res);
-        // window.sessionStorage.setItem("session", "1234");
-        console.log("session -> ", window.sessionStorage.getItem("session"));
-        props.check(window.sessionStorage.getItem("session"));
+        const {jwttoken} = await postAPI("/api/v1/token", user);
+        Cookies.set('Authorization', jwttoken);
+        console.log(Cookies.get('Authorization').split(' ')[1]);
+        props.setLog();
         history.goBack();
     }
 
@@ -42,8 +44,8 @@ const SignIn = (props) => {
         <div className="sign-in-page">
             <div className="sign-in">
                 <div className="sign-in-inputs">
-                    <input className="user-id" name="userId" value={userId} placeholder="ID" onKeyPress={keyPress} onChange={setUser}></input>
-                    <input className="user-password" name="userPassword" value={userPassword} placeholder="PASSWORD" onKeyPress={keyPress} onChange={setUser} type="password"></input>
+                    <input className="user-id" name="username" value={username} placeholder="ID" onKeyPress={keyPress} onChange={setUser}></input>
+                    <input className="user-password" name="password" value={password} placeholder="PASSWORD" onKeyPress={keyPress} onChange={setUser} type="password"></input>
                 </div>
                 <button className="sign-in-btn" onClick={signIn}>LOGIN</button>
             </div>

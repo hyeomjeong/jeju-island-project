@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import '../common/common.css';
 import './Store.css';
 
 import MenuList from './menu/MenuList';
+
 import CommentList from '../comment/CommentList';
+import InputComment from '../comment/InputComment';
+
 import Score from './Score';
 import Tag from './tag/Tag';
-
-// 등록되긴 하는데 화면에 출력이 안되는 것 같늠 해당 부분 수정 요망.
 
 // function 
 const Store = (props) =>{
     const [ store_info, setStoreInfo ] = useState(props);
+    const { name, rating, phone, address, tags, menus, comments } = store_info;
 
     const setComment = (newComments) => {
-        // console.log(newComment);
         setStoreInfo({
             ...store_info,
             comments: newComments
         });
     };
 
-    const { name, rating, phone, address, tags, menus, comments } = store_info;
+    const insertComment = (newComment) => {
+        const temp = comments.concat(newComment);
+        setComment(temp);
+    }
 
     const tagList = tags.map(
         (info, index) => <Tag key={index} data={info} />
@@ -46,6 +50,7 @@ const Store = (props) =>{
             <hr className="middle-line"></hr>
             <div className="comment-list">
                 <CommentList data={comments} setComment={setComment}/>
+                <InputComment insertComment={insertComment}/>
             </div>           
         </div>
     );

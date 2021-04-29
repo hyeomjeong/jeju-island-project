@@ -1,40 +1,36 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { getAPI, deleteAPI } from '../common/API';
+import useInput from '../c_Hooks/useInput';
 import SearchBox from '../searchBox/SearchBox';
 import './common.css';
+import jwtDecode from 'jwt-decode';
 
 const Header = (props) => {
-    const [logStatus, setStatus] = useState(false);
+
+    const [logStatus, setStatus] = useState(props.status);
     
-    const [user, setUser] = useState({
-        nickname: "",
-        email: "",
-        phone: ""
-    });
+    const [user, setUser] = useState("");
 
     useEffect(() => {
-        setStatus(props.data);
-        if(props.data){
-            setUser(getAPI("/api/v1/session/userData"));
+        // get User info
+        // console.log(Cookies.get('Authorization'));
+        setStatus(props.status);
+        if(props.status){
+            const decoded = jwtDecode(Cookies.get('Authorization').split(' ')[1]);
+            console.log(decoded.nickname);
+            setUser(decoded.nickname);
         }
     }
-    , [props.data]);
+    , [props.status]);
 
     const signOut = () => {
-        deleteAPI("/api/v1/session");
-        window.sessionStorage.clear();
-        
-        setUser({
-            nickname: "", 
-            email: "", 
-            phone: ""
-        });
-        
-        setStatus(false);
-        props.check(window.sessionStorage.getItem("session"));
+        Cookies.remove('Authorization');
+        props.setLog();
+        setUser("");
     }
    
     return(
@@ -48,7 +44,7 @@ const Header = (props) => {
             <div className="common-header item">
             { logStatus ? 
                 <div className="sign-in-out-info">
-                    <button className="user-btn"><Link to="/memeber/my-page" className="links">{user.nickname}</Link></button>
+                    <button className="user-btn"><Link to="/member/my-page" className="links">{user}</Link></button>
                     <button className ="sign-btn" onClick={signOut}>SIGN OUT</button>
                 </div> 
                 :

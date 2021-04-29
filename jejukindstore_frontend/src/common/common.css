@@ -29,6 +29,10 @@ button {
   align-items: center;
 }
 
+.right-btn {
+  float: right;
+}
+
 .center {
   display: flex;
   flex-direction: column;

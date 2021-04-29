@@ -7,8 +7,9 @@ const globalAxiosConfig = {
 }
 */
 export function getAPI(url){
-    return axios.get(process.env.REACT_APP_BACKEND_URL + url)
+    return axios.get(url)
     .then((Response) => {
+        console.log(Response);
         return (Response.data);
     })
     .catch((Error) => {
@@ -17,7 +18,7 @@ export function getAPI(url){
 }
 
 export function headAPI(url){
-    return axios.head(process.env.REACT_APP_BACKEND_URL + url)
+    return axios.head(url)
     .then((Response) => {
         if (Response.status === 204)
             return false;
@@ -32,7 +33,7 @@ export function headAPI(url){
 
 export function testPost(url, data){
 
-    return axios.post(process.env.REACT_APP_BACKEND_URL + url, data)
+    return axios.post(url, data)
     .then((Response) => {
         const { accessToken } = Response.data;
 		// API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
@@ -48,9 +49,9 @@ export function testPost(url, data){
 }
 
 export function postAPI(url, data){
-    return axios.post(process.env.REACT_APP_BACKEND_URL + url, data)
+    return axios.post(url, data)
     .then((Response) => {
-        console.log(Response);
+        // console.log(Response);
         if (Response.status === 200){
             return Response.data;
         }
@@ -62,7 +63,7 @@ export function postAPI(url, data){
 }
 
 export function deleteAPI(url){
-    return axios.delete(process.env.REACT_APP_BACKEND_URL + url)
+    return axios.delete(url)
     .then(function (Response) {
         console.log(Response);
     })
@@ -75,7 +76,7 @@ export function deleteAPI(url){
 }
 
 export function putAPI(url, data){
-    axios.put(process.env.REACT_APP_BACKEND_URL+url, data)
+    axios.put(url, data)
     .then((Response) => {
         console.log(Response);
         return true;

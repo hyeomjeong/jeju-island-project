@@ -1,5 +1,6 @@
 
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import CheckBox from './CheckBox';
 import './SearchBox.css';
@@ -53,7 +54,7 @@ const SearchBox = (props) => {
                 <CheckBox inputs={inputs} onChange={onChange} category={props.category} location={props.location}/>
                 <div className="search-btns">
                     <button className="margin-btn" onClick={removeAll}>REMOVE ALL</button>
-                    <button className="margin-btn">SEARCH</button>
+                    <button><Link to="/store/id" className="links">SEARCH</Link></button>
                 </div>  
             </div>}
         </div>

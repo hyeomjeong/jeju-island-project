@@ -6,7 +6,9 @@ import Score from '../store/Score';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+// comment link to "store/store_id"
 const Comment = (props) => {
+
     const comment= props.comment;
     const { storeName, name, date, rating, content } = comment;
     const nickname = props.member;
@@ -29,7 +31,8 @@ const Comment = (props) => {
             
             { nickname === name && 
                     <div className="comment-btns" >
-                        <SettingsIcon onClick={() => {}}/>
+                        <SettingsIcon onClick={() => {props.updateComment()}}></SettingsIcon>
+                        <Link to="/comment" className=""><SettingsIcon /></Link>
                         <DeleteIcon onClick={() => {props.deleteComment(comment)}}/>
                     </div>}
             <hr className="thin-line"></hr>

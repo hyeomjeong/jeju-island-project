@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import useInput from '../c_Hooks/useInput';
 
 import Star from '../store/Star';
+import './InputComment.css';
 
 const InputComment = (props) => {
 
-    const [ comment, setComment ] = useInput({
-        name: "",
-        date: "",
-        rating: 0,
-        content: ""
-    });
+    const [ comment, setComment ] = useState(props.comment);
 
     const { name, date, rating, content } = comment;
+
+    const onChange = (e) => setComment({...comment, [e.target.name] : e.target.value})
 
     const onReset = () => {
         setComment({
@@ -25,11 +22,11 @@ const InputComment = (props) => {
 
     const handleKeyPress = (e) => {
         if (e.key === "Enter"){
-            inputComment();
+            insertComment();
         }
     }
 
-    const inputComment = () =>{
+    const insertComment = () =>{
         if(comment.content === ""){
             alert("내용을 입력하십시오!!");
             return;
@@ -44,7 +41,7 @@ const InputComment = (props) => {
         }
         var today = new Date();
         setComment(comment.date = (today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate()));
-        props.inputComment(comment);
+        props.insertComment(comment);
         onReset();
     }
 
@@ -70,24 +67,30 @@ const InputComment = (props) => {
             ...comment, 
             rating: hoverRating
         });
-        
-        // console.log(hoverRating, rating);
     }
     
     return (
-        <div className="insert-comment">
-            <div className="comment-input-head">
-                <input name="name" className="nickNmae-input" placeholder="닉네임" onChange={setComment} value={name}></input>
-                <div className="star-rating">
+        <div className="flex-col">
+                <div className="flex-row"> 
+                    { props.comment.name === "" ? <input className="" name="name" placeholder="닉네임" onChange={onChange} value={name} /> : 
+                        <p>{name}</p>
+                    }
                     <Star data={rating} onSaveRating={onSaveRating} />
                 </div>
-            </div>
-            
-            <textarea name="content" className="comment-textarea" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={setComment} onKeyPress={handleKeyPress} value={content} ></textarea>
-            <button className="insert-comment-btn" onClick={inputComment} onKeyPress={handleKeyPress}>등록</button>
+            <textarea name="content" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={onChange} onKeyPress={handleKeyPress} value={content} ></textarea>
+            <button className="right-btn" onClick={insertComment} onKeyPress={handleKeyPress}>등록</button>
         </div>
     );
 
+}
+
+InputComment.defaultProps = {
+    comment: {
+        name: "",
+        date: "",
+        rating: 0,
+        content: ""
+    }
 }
 
 export default InputComment;

@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {deleteAPI} from '../common/API';
+import {headAPI, deleteAPI} from '../common/API';
 const Map =() => {
 
     async function test(){
-        await deleteAPI("/api/v1/session");
+        //await headAPI("/api/v1/session");
+        await headAPI("/api/v1/user?id=1");
     }
     
     return(

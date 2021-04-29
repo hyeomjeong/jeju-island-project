@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 
-import {updateAPI} from '../common/API';
+import {getAPI, updateAPI} from '../common/API';
 
 import CommentList from '../comment/CommentList';
 import './MyPage.css';
 
 const MyPage = (props) => {
     // props로 내 댓글 목록, 회원 정보 받아오거나 여기서 처음에 받아옴 일단 defaultProps로 처리
-    const [member, setMember] = useState(props.member);
+    const [user, setUser] = useState(props.member);
 
-    const { id, nickname, phone, email } = member;
+    const {id, nickname, phone, email} = user;
+
+    
+
+    useEffect(async function(){   
+        const decoded = jwtDecode(Cookies.get('Authorization').split(' ')[1]);
+        setUser(await getAPI('/api/v1/user?nickname=' + decoded.nickname));
+    }, []);
+
 
     const [my_comments, setComments] = useState(props.comments);
 
