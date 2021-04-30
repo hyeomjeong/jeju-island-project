@@ -30,8 +30,10 @@ const SignIn = props => {
         // BackEnd - chk -> setSession
         const {jwttoken} = await postAPI("/api/v1/token", user);
         Cookies.set('Authorization', jwttoken);
-        console.log(Cookies.get('Authorization').split(' ')[1]);
-        props.setLog();
+        // console.log(Cookies.get('Authorization'));
+        
+        console.log("sign in -> ", Cookies.get('Authorization'));
+        props.setLog(true);
         history.goBack();
     }
 

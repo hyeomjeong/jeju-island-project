@@ -22,7 +22,7 @@ export default () => {
     return(
         <BrowserRouter>
             
-            <Header status={logStatus} setLog={() => setLog(false)}/>
+            <Header status={logStatus} setLog={(flag) => setLog(flag)}/>
             <Switch>
                 <Route exact path='/' component={Main}/>
 
@@ -31,7 +31,7 @@ export default () => {
                 
                 <Route path='/comment' component={InputComment}/>
 
-                <Route path='/member/sign-in' render={() => <SignIn setLog={() => setLog(true)}/>}/>
+                <Route path='/member/sign-in' render={() => <SignIn setLog={(flag) => setLog(flag)}/>}/>
                 <Route path='/member/sign-up' component={SignUp}/>
                 <Route path='/member/find' component={FindMember}/>
                 <Route path='/member/my-page' component={MyPage}/>

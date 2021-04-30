@@ -1,24 +1,33 @@
 import axios from 'axios';
-/*
-const globalAxiosConfig = {
-    headers: {
-      'X-CSRFToken': 'add csrf token here',
-    },
-}
-*/
+import Cookies from 'js-cookie';
+
+const httpInstance = axios.create({ 
+    baseURL: process.env.REACT_APP_BACK_END_URL, 
+    timeout: 5000, 
+    headers: { 
+        'content-type': 'application/json; charset=UTF-8',
+    }, 
+    // withCredentials: true, 
+    
+});
+
+httpInstance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('Authorization')}`;
+console.log("API -> ", 'Bearer ' + Cookies.get('Authorization'));
+
 export function getAPI(url){
-    return axios.get(url)
+    return httpInstance.get(url)
     .then((Response) => {
         console.log(Response);
         return (Response.data);
     })
     .catch((Error) => {
+        console.log(Error);
         return false;
     });
 }
 
 export function headAPI(url){
-    return axios.head(url)
+    return httpInstance.head(url)
     .then((Response) => {
         if (Response.status === 204)
             return false;
@@ -30,6 +39,48 @@ export function headAPI(url){
         return false;
     });
 }
+
+export function postAPI(url, data){
+    return httpInstance.post(url, data)
+    .then((Response) => {
+        console.log(Response);
+        if (Response.status === 200){
+            return Response.data;
+        }
+    })
+    .catch((Error) => {
+        console.log(Error);
+        return false;
+    });
+}
+
+export function deleteAPI(url){
+    return httpInstance.delete(url)
+    .then(function (Response) {
+        console.log(Response);
+    })
+    .catch(function (error){
+        console.log(error);
+    })
+    .then(function() {
+
+    });
+}
+
+export function putAPI(url, data){
+    httpInstance.put(url, data)
+    .then((Response) => {
+        console.log(Response);
+        return true;
+    }).catch((Error) => {
+        console.log(Error);
+        return false;
+    });
+}
+    
+
+
+
 
 export function testPost(url, data){
 
@@ -47,42 +98,3 @@ export function testPost(url, data){
 
     
 }
-
-export function postAPI(url, data){
-    return axios.post(url, data)
-    .then((Response) => {
-        // console.log(Response);
-        if (Response.status === 200){
-            return Response.data;
-        }
-    })
-    .catch((Error) => {
-        console.log(Error);
-        return false;
-    });
-}
-
-export function deleteAPI(url){
-    return axios.delete(url)
-    .then(function (Response) {
-        console.log(Response);
-    })
-    .catch(function (error){
-        console.log(error);
-    })
-    .then(function() {
-
-    });
-}
-
-export function putAPI(url, data){
-    axios.put(url, data)
-    .then((Response) => {
-        console.log(Response);
-        return true;
-    }).catch((Error) => {
-        console.log(Error);
-        return false;
-    });
-}
-    

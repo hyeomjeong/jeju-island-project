@@ -19,8 +19,10 @@ const Header = (props) => {
         // get User info
         // console.log(Cookies.get('Authorization'));
         setStatus(props.status);
+        console.log("header -> ", props.status);
         if(props.status){
-            const decoded = jwtDecode(Cookies.get('Authorization').split(' ')[1]);
+            console.log("header -> ", Cookies.get('Authorization'));
+            const decoded = jwtDecode(Cookies.get('Authorization'));
             console.log(decoded.nickname);
             setUser(decoded.nickname);
         }
@@ -29,7 +31,7 @@ const Header = (props) => {
 
     const signOut = () => {
         Cookies.remove('Authorization');
-        props.setLog();
+        props.setLog(false);
         setUser("");
     }
    
