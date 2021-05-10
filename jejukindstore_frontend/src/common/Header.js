@@ -1,37 +1,37 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 
 import { getAPI, deleteAPI } from '../common/API';
-import useInput from '../c_Hooks/useInput';
-import SearchBox from '../searchBox/SearchBox';
+import sessionContext from './SessionContext';
+// import useInput from '../c_Hooks/useInput';
+
 import './common.css';
-import jwtDecode from 'jwt-decode';
+import SearchBox from '../searchBox/SearchBox';
 
 const Header = (props) => {
 
-    const [logStatus, setStatus] = useState(props.status);
-    
+    const [session, setSession] = useContext(sessionContext);
     const [user, setUser] = useState("");
 
     useEffect(() => {
         // get User info
         // console.log(Cookies.get('Authorization'));
-        setStatus(props.status);
-        console.log("header -> ", props.status);
-        if(props.status){
-            console.log("header -> ", Cookies.get('Authorization'));
-            const decoded = jwtDecode(Cookies.get('Authorization'));
-            console.log(decoded.nickname);
+        
+        if(typeof session !== 'undefined'){
+            // console.log("header -> ", Cookies.get('Authorization'));
+            const decoded = jwtDecode(session);
+            // console.log(decoded.nickname);
             setUser(decoded.nickname);
         }
     }
-    , [props.status]);
+    , [session]);
 
     const signOut = () => {
-        Cookies.remove('Authorization');
-        props.setLog(false);
+        session = ""
+        // props.setLog(false);
         setUser("");
     }
    
@@ -44,7 +44,7 @@ const Header = (props) => {
                 <SearchBox />
             </div>
             <div className="common-header item">
-            { logStatus ? 
+            { user !== "" ? 
                 <div className="sign-in-out-info">
                     <button className="user-btn"><Link to="/member/my-page" className="links">{user}</Link></button>
                     <button className ="sign-btn" onClick={signOut}>SIGN OUT</button>

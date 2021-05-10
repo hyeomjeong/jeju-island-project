@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const httpInstance = axios.create({ 
     baseURL: process.env.REACT_APP_BACK_END_URL, 
-    timeout: 5000, 
+    timeout: 1000000, 
     headers: { 
         'content-type': 'application/json; charset=UTF-8',
     }, 
@@ -11,8 +11,11 @@ const httpInstance = axios.create({
     
 });
 
-httpInstance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('Authorization')}`;
-console.log("API -> ", 'Bearer ' + Cookies.get('Authorization'));
+if (typeof Cookies.get('Authorization') !== 'undefined'){
+    console.log(Cookies.get('Authorization'));
+    httpInstance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('Authorization')}`;
+}
+
 
 export function getAPI(url){
     return httpInstance.get(url)

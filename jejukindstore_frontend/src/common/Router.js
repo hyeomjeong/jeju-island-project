@@ -14,15 +14,14 @@ import Modify from '../member/Modify';
 import Store from '../store/Store';
 
 import InputComment from '../comment/InputComment';
-import { PinDropSharp } from '@material-ui/icons';
 
 export default () => {
-    const [logStatus, setLog] = useState(false);
+    // const [logStatus, setLog] = useState(false);
 
     return(
         <BrowserRouter>
             
-            <Header status={logStatus} setLog={(flag) => setLog(flag)}/>
+            <Header />
             <Switch>
                 <Route exact path='/' component={Main}/>
 
@@ -31,7 +30,7 @@ export default () => {
                 
                 <Route path='/comment' component={InputComment}/>
 
-                <Route path='/member/sign-in' render={() => <SignIn setLog={(flag) => setLog(flag)}/>}/>
+                <Route path='/member/sign-in' component={SignIn}/>
                 <Route path='/member/sign-up' component={SignUp}/>
                 <Route path='/member/find' component={FindMember}/>
                 <Route path='/member/my-page' component={MyPage}/>

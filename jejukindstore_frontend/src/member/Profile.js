@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import {getAPI} from '../common/API';
+import {getAPI, deleteAPI} from '../common/API';
 
 
 
@@ -17,6 +17,14 @@ const Profile = (props) => {
     useEffect(async function(){
         setUser(await getAPI('/api/v1/user?nickname=' + props.nickname));
     }, [props.nickname])
+
+
+    async function withdrawal(){
+        if (await deleteAPI('/api/v1/user' + id)){
+            alert("탈퇴가 완료되었습니다.");
+            props.history.push('/');
+        }
+    }
 
     return(
         <div className="center">
@@ -41,6 +49,7 @@ const Profile = (props) => {
                 </div>
 
                 <button className="modify-btn"><Link to="/member/modify" className="links">수정</Link></button>
+                <button onClick={withdrawal}>회원탈퇴</button>
             </div>
     );
 }
