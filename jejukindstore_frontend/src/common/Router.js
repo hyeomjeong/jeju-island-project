@@ -11,7 +11,7 @@ import FindMember from '../member/FindMember';
 import MyPage from '../member/MyPage';
 import Modify from '../member/Modify';
 
-import Store from '../store/Store';
+import Store from '../kindstore/Store';
 
 import InputComment from '../comment/InputComment';
 

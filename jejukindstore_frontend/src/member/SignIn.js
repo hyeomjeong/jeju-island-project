@@ -1,19 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
+import * as actions from '../actions/status';
 import { postAPI } from '../common/API';
 import useInput from '../c_Hooks/useInput';
-
 import './SignIn.css';
 
 const SignIn = props => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const [user, setUser] = useInput({
         username: "",
         password: ""
     });
-
     const {username, password} = user;
 
     async function signIn(){
@@ -27,13 +28,13 @@ const SignIn = props => {
             return;
         }
         
+        /*
         // BackEnd - chk -> setSession
         const {jwttoken} = await postAPI("/api/v1/token", user);
         Cookies.set('Authorization', jwttoken);
-        // console.log(Cookies.get('Authorization'));
-        
-        console.log("sign in -> ", Cookies.get('Authorization'));
-        props.setLog(true);
+        */
+       console.log("sign-in")
+        dispatch(actions.signIn());
         history.goBack();
     }
 

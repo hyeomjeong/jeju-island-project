@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Star from '../store/Star';
+import Star from '../kindstore/Star';
 import './InputComment.css';
 
 const InputComment = (props) => {
