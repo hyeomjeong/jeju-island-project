@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {postAPI} from '../common/API';
 import Star from '../kindstore/Star';
 import './InputComment.css';
 

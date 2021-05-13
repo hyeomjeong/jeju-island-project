@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Menu from './Menu';
-
+import {getAPI} from '../../common/API';
 const MenuList = (props) => {
 
-    const { data } = props;
+    const [menu, setMenu] = useState([]);
+    useEffect(async function(){
+        const m = await getAPI("/api/v1/store/" + props.store_id + "/menu");
+        setMenu(m);
+    }, [props.store_id])
 
-    const list = data.map(
+    const list = menu.map(
         (info, index) => <Menu key={index} name={info.name} price={info.price} />
     );
 
@@ -17,7 +21,7 @@ const MenuList = (props) => {
 }
 
 MenuList.defaultProps = {
-    data: []
+    store_id: 1
 };
 
 export default MenuList;

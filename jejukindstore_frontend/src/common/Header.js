@@ -18,12 +18,14 @@ const Header = (props) => {
     const dispatch = useDispatch();
     const [user, setUser] = useState("");
     const { status: logStatus } = useSelector((state) => state.status);
+    const [nickname, setNickname] = useState("");
     // console.log(logStatus);
-    useEffect(() => {
+    useEffect(async function(){
         // get User info
         if(logStatus){
+            // const data = await getAPI("geturl");
             // const decoded = jwtDecode(session);
-            // setUser(decoded.nickname);
+            // setNickname(decoded.nickname);
             setUser("임시");
         }
     }

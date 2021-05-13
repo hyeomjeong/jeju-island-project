@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
@@ -11,16 +12,22 @@ import './MyPage.css';
 
 const MyPage = (props) => {
     // props로 내 댓글 목록, 회원 정보 받아오거나 여기서 처음에 받아옴 일단 defaultProps로 처리
-    const nickname = Cookies.get('Authorization') === undefined ? undefined : jwtDecode(Cookies.get("Authorization")).nickname;
-    
+    const {status: logStatus} = useSelector((state) => state.status);
+    const [nickname, setNickname] = useState("");
     const [my_comments, setComments] = useState(props.comments);
+
+    useEffect(async function(){
+        if (logStatus){
+            await getAPI(nickname);
+        }
+    }, [logStatus]);
 
     const setComment = (newComment) => {
         setComments(newComment);
     }
 
     return(
-        nickname !== undefined &&
+        logStatus &&
         <div className="my-page">
             <Profile nickname={nickname}/>
             <hr className="middle-line"/>

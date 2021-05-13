@@ -6,7 +6,7 @@ const Menu = (props) => {
     return(
         <div className="menu-info">
                 <p className="menu-name">{name}</p>
-                <p className="menu-price">{price}원</p>
+                <p className="menu-price">{price}</p>
         </div>
     );
 }

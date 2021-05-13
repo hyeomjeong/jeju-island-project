@@ -2,8 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import Routers from './common/Router'; 
-
-
 import createStore from './store';
 import reducers from './reducers';
 

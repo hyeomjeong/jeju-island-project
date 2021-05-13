@@ -81,10 +81,6 @@ export function putAPI(url, data){
     });
 }
     
-
-
-
-
 export function testPost(url, data){
 
     return axios.post(url, data)
