@@ -69,7 +69,7 @@ const Map = ({stores}) => {
 
         // click 시 Link 이벤트 발생
         kakao.maps.event.addListener(marker, 'click', function() {
-            console.log(history);
+            // console.log(history);
             history.push({
                 pathname: "/store",
                 state: {id: data.id},

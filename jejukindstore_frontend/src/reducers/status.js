@@ -1,7 +1,7 @@
 import * as stautsActions from '../actions/status';
 
 const initialStates = {
-  status: true,
+  status: false,
 }
 
 const reducers = (state = initialStates, actions) => {
@@ -19,7 +19,6 @@ const reducers = (state = initialStates, actions) => {
         status: false,
       }
     }
-    
     default: {
       return {
         ...state,

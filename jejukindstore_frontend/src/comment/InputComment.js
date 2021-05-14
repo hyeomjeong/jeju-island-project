@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// import {useInput} from '../c_Hooks/useInput';
 import {postAPI} from '../common/API';
 import Star from '../kindstore/Star';
 import './InputComment.css';
@@ -7,14 +9,12 @@ const InputComment = (props) => {
 
     const [ comment, setComment ] = useState(props.comment);
 
-    const { name, date, rating, content } = comment;
+    const { name, rating, content } = comment;
 
     const onChange = (e) => setComment({...comment, [e.target.name] : e.target.value})
 
     const onReset = () => {
         setComment({
-            name: "",
-            date: "",
             rating: 0,
             content: ""
         });
@@ -26,7 +26,7 @@ const InputComment = (props) => {
         }
     }
 
-    const insertComment = () =>{
+    async function insertComment(){
         if(comment.content === ""){
             alert("내용을 입력하십시오!!");
             return;
@@ -39,9 +39,7 @@ const InputComment = (props) => {
             alert("별점을 입력해주세요!! (0.5 ~ 5)");
             return;
         }
-        var today = new Date();
-        setComment(comment.date = (today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate()));
-        props.insertComment(comment);
+        await postAPI("/api/v1/store/" + props.store_id + "/comment")
         onReset();
     }
 
@@ -72,9 +70,7 @@ const InputComment = (props) => {
     return (
         <div className="flex-col">
                 <div className="flex-row"> 
-                    { props.comment.name === "" ? <input className="" name="name" placeholder="닉네임" onChange={onChange} value={name} /> : 
-                        <p>{name}</p>
-                    }
+                    <p>{name}</p>
                     <Star data={rating} onSaveRating={onSaveRating} />
                 </div>
             <textarea name="content" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={onChange} onKeyPress={handleKeyPress} value={content} ></textarea>
@@ -86,8 +82,7 @@ const InputComment = (props) => {
 
 InputComment.defaultProps = {
     comment: {
-        name: "",
-        date: "",
+        name: "임시",
         rating: 0,
         content: ""
     }

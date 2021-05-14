@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import Cookies from 'js-cookie';
 
 import * as actions from '../actions/status';
 import { getAPI, deleteAPI } from '../common/API';
@@ -16,24 +15,25 @@ import SearchBox from '../searchBox/SearchBox';
 
 const Header = (props) => {
     const dispatch = useDispatch();
-    const [user, setUser] = useState("");
     const { status: logStatus } = useSelector((state) => state.status);
     const [nickname, setNickname] = useState("");
     // console.log(logStatus);
     useEffect(async function(){
         // get User info
         if(logStatus){
-            // const data = await getAPI("geturl");
-            // const decoded = jwtDecode(session);
-            // setNickname(decoded.nickname);
-            setUser("임시");
+            console.log("HEADER");
+            // console.log(sessionStorage.getItem('Authorization'));
+            const decoded = jwtDecode(sessionStorage.getItem('Authorization'));
+            setNickname(decoded.nickname);
+            // console.log(decoded);
         }
     }
     , [logStatus]);
 
     const signOut =  () => {
+        sessionStorage.clear();
         dispatch(actions.signOut());
-        setUser("");
+        setNickname("");
     }
    
     return(
@@ -47,7 +47,7 @@ const Header = (props) => {
             <div className="common-header item">
             { logStatus ? 
                 <div className="sign-in-out-info">
-                    <button><Link to="/member/my-page" className="my-page-link">{user}</Link></button>
+                    <button><Link to="/member/my-page" className="links">{nickname}</Link></button>
                     <button className ="sign-btn" onClick={signOut}>SIGN OUT</button>
                 </div> 
                 :

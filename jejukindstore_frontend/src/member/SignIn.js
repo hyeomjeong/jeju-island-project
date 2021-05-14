@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 import * as actions from '../actions/status';
 import { postAPI } from '../common/API';
@@ -28,12 +27,13 @@ const SignIn = props => {
             return;
         }
         
-        /*
         // BackEnd - chk -> setSession
-        const {jwttoken} = await postAPI("/api/v1/token", user);
-        Cookies.set('Authorization', jwttoken);
-        */
-       console.log("sign-in")
+        const jwttoken = await postAPI("/api/v1/token", user);
+        if(jwttoken === false){
+            alert("ID와 PASSWORD를 확인해주세요.");
+            return;
+        }
+        sessionStorage.setItem('Authorization', jwttoken);
         dispatch(actions.signIn());
         history.goBack();
     }

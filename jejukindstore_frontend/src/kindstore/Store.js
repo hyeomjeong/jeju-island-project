@@ -16,7 +16,7 @@ import Score from './Score';
 const Store = (props) =>{
     const { status: logStatus } = useSelector((state) => state.status);
     const [ store_id, setID ] = useState(props.location.state.id);
-    console.log(store_id);
+    
     const [ store_info, setStoreInfo ] = useState({
         name: "",
         location: "",

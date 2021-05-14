@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const httpInstance = axios.create({ 
     baseURL: process.env.REACT_APP_BACK_END_URL, 
@@ -11,16 +10,15 @@ const httpInstance = axios.create({
     
 });
 
-if (typeof Cookies.get('Authorization') !== 'undefined'){
-    console.log(Cookies.get('Authorization'));
-    httpInstance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('Authorization')}`;
+if (sessionStorage.getItem('Authorization') !== "undefined"){
+    httpInstance.defaults.headers.common.Authorization = `Bearer ${sessionStorage.getItem('Authorization')}`;
 }
 
 
 export function getAPI(url){
     return httpInstance.get(url)
     .then((Response) => {
-        console.log(Response);
+        //console.log(Response);
         return (Response.data);
     })
     .catch((Error) => {
@@ -46,8 +44,8 @@ export function headAPI(url){
 export function postAPI(url, data){
     return httpInstance.post(url, data)
     .then((Response) => {
-        console.log(Response);
         if (Response.status === 200){
+            console.log(Response);
             return Response.data;
         }
     })

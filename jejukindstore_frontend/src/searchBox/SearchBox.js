@@ -13,7 +13,7 @@ const SearchBox = (props) => {
 
     const [isChecked, setCheck] = useState(false);
     const [inputs, setInputs] = useState([]); 
-
+    console.log(inputs);
     const onChange = (e) => {
         if(e.target.checked){
             setInputs(inputs.concat(e.target.name));
@@ -41,7 +41,6 @@ const SearchBox = (props) => {
         <button className="tag-btn" key={index} onClick={() => {removeInput(info)}} name={info}>#{info}</button>
     );
    
-
     return(
         <div className="search">
             <div className="search-box">
