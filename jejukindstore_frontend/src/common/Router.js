@@ -22,8 +22,8 @@ export default () => {
 
     useEffect(async function(){
         const store_locations = await getAPI("/api/v1/store/location");
+        // console.log(store_locations);
         store_locations.sort((a,b) => (a['storeId'] - b['storeId']));
-        //console.log(store_locations);
         const store_infos = await getAPI("/api/v1/store");
         store_infos.sort((a,b) => (a['id'] - b['id']));
         //console.log(store_infos);

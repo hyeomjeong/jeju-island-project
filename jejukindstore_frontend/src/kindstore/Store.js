@@ -24,7 +24,7 @@ const Store = (props) =>{
         address: "",
         category: "",
     });
-    const { name, id, telephone, address, location, category } = store_info;
+    const { name, id, telephone, address, local, category } = store_info;
 
     useEffect(async function(){
         setStoreInfo(await getAPI("/api/v1/store/" + store_id));
@@ -38,7 +38,7 @@ const Store = (props) =>{
                 <p className="store-phone">{telephone}</p>
                 <p className="store-address">{address}</p>
                 <div className="tags">
-                    <button>{location}</button>
+                    <button>{local}</button>
                     <button>{category}</button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 
@@ -10,13 +10,21 @@ import './MyPage.css';
 
 const MyPage = (props) => {
     const {status: logStatus} = useSelector(state => state.status);
-    
+    const [nickname, setNickname] = useState("");
+
+    useEffect(() => {
+        if(logStatus){
+            const decoded = jwtDecode(sessionStorage.getItem('Authorization'));
+            setNickname(decoded.nickname);
+        }
+    }, [logStatus]);
+
     return(
         logStatus && <div className="my-page">
-            <Profile />
+            <Profile nickname={nickname}/>
             <hr className="middle-line"/>
             <div className="my-comment-list">
-                <CommentList />
+                <CommentList logName={nickname} />
             </div>
         </div>
     );

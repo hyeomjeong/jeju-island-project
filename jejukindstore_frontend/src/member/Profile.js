@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom';
 
 import {getAPI, deleteAPI} from '../common/API';
 
-
-
 const Profile = (props) => {
     const [user, setUser] = useState({
         id: "",

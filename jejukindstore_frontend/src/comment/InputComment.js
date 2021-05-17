@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 
 // import {useInput} from '../c_Hooks/useInput';
 import {postAPI} from '../common/API';
@@ -6,16 +7,21 @@ import Star from '../kindstore/Star';
 import './InputComment.css';
 
 const InputComment = (props) => {
+    const decoded = (jwtDecode(sessionStorage.getItem('Authorization')));
+    const [ comment, setComment ] = useState({
+        user_id: decoded.sub,
+        store_id: props.store_id,
+        content: "",
+        score: 0,
+    });
 
-    const [ comment, setComment ] = useState(props.comment);
-
-    const { name, rating, content } = comment;
+    const { user_id, score, content } = comment;
 
     const onChange = (e) => setComment({...comment, [e.target.name] : e.target.value})
 
     const onReset = () => {
         setComment({
-            rating: 0,
+            score: 0,
             content: ""
         });
     };
@@ -31,15 +37,12 @@ const InputComment = (props) => {
             alert("내용을 입력하십시오!!");
             return;
         }
-        if(comment.name === ""){
-            alert("닉네임을 입력하십시오!!");
-            return;
-        }
-        if(comment.rating === 0){
+        if(comment.score === 0){
             alert("별점을 입력해주세요!! (0.5 ~ 5)");
             return;
         }
-        await postAPI("/api/v1/store/" + props.store_id + "/comment")
+        console.log(comment);
+        await postAPI("/api/v1/store/" + props.store_id + "/comment", comment);
         onReset();
     }
 
@@ -63,15 +66,15 @@ const InputComment = (props) => {
     const onSaveRating = (hoverRating) => {
         setComment({
             ...comment, 
-            rating: hoverRating
+            score: hoverRating
         });
     }
     
     return (
         <div className="flex-col">
                 <div className="flex-row"> 
-                    <p>{name}</p>
-                    <Star data={rating} onSaveRating={onSaveRating} />
+                    <p>{decoded.nickname}</p>
+                    <Star data={score} onSaveRating={onSaveRating} />
                 </div>
             <textarea name="content" placeholder="심각한 비하는 신고의 대상이 될 수 있습니다." onChange={onChange} onKeyPress={handleKeyPress} value={content} ></textarea>
             <button className="right-btn" onClick={insertComment} onKeyPress={handleKeyPress}>등록</button>
@@ -80,12 +83,5 @@ const InputComment = (props) => {
 
 }
 
-InputComment.defaultProps = {
-    comment: {
-        name: "임시",
-        rating: 0,
-        content: ""
-    }
-}
 
 export default InputComment;

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import jwtDecode from 'jwt-decode';
 
 import {getAPI} from '../common/API';
 import Comment from './Comment';
@@ -10,16 +9,14 @@ const CommentList = (props) => {
 
     useEffect(async function(){
         if(store_id === "undefined"){
-            const decoded = jwtDecode(sessionStorage.getItem('Authorization'));
-            setComments(await getAPI("/api/v1/user/"+decoded.nickname+"/comment"));
+            setComments(await getAPI("/api/v1/user/"+props.logName+"/comment"));
         }
         else{
             setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
-
-            console.log(await getAPI("/api/v1/store/"+store_id+"/comment"));
+            console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
         }
     }
-    ,[props]);
+    ,[]);
 
     // delete comment
     const deleteComment = (c) =>{
@@ -37,7 +34,7 @@ const CommentList = (props) => {
     const commentList = comments.map(
         (info, index) => 
         <div key={index}>
-            <Comment comment={info} deleteComment={deleteComment} updateComment={updateComment}/>
+            <Comment logName={props.logName} comment={info} deleteComment={deleteComment} updateComment={updateComment}/>
         </div>
         );
 
