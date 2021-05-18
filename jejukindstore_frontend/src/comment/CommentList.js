@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import {useSelector} from 'react-redux';
 
 import {getAPI} from '../common/API';
 import Comment from './Comment';
+import InputComment from './InputComment';
+
 
 const CommentList = (props) => {
     const store_id = props.store_id;
+    const { status: logStatus } = useSelector((state) => state.status);
+    // const [flag, setFlag] = useState(true);
     const [ comments, setComments ] = useState([]);
 
     useEffect(async function(){
         if(store_id === "undefined"){
-            setComments(await getAPI("/api/v1/user/"+props.logName+"/comment"));
+            setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
         }
         else{
             setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
             console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
         }
     }
-    ,[]);
+    ,[logStatus]);
 
     // delete comment
     const deleteComment = (c) =>{
@@ -31,16 +36,22 @@ const CommentList = (props) => {
         // setComments(newComments);
     }
 
+    async function insertComment(){
+        setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
+        console.log(comments);
+    }
+
     const commentList = comments.map(
         (info, index) => 
         <div key={index}>
-            <Comment logName={props.logName} comment={info} deleteComment={deleteComment} updateComment={updateComment}/>
+            <Comment comment={info} deleteComment={deleteComment} updateComment={updateComment}/>
         </div>
         );
 
     return(
         <div>
             {commentList}
+            {(store_id !== "undefined" && logStatus) && <InputComment insertComment={insertComment} store_id={store_id}/>}
         </div>
     );
 }

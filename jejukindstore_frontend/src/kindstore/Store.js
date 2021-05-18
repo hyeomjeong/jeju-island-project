@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { getAPI } from '../common/API';
 
 import '../common/common.css';
@@ -8,13 +7,11 @@ import './Store.css';
 import MenuList from './menu/MenuList';
 
 import CommentList from '../comment/CommentList';
-import InputComment from '../comment/InputComment';
 
 import Score from './Score';
 
 // function 
 const Store = (props) =>{
-    const { status: logStatus } = useSelector((state) => state.status);
     const [ store_id, setID ] = useState(props.location.state.id);
     
     const [ store_info, setStoreInfo ] = useState({
@@ -49,7 +46,6 @@ const Store = (props) =>{
             <hr className="middle-line"></hr>
             <div className="comment-list">
                 <CommentList store_id={store_id} />
-                {logStatus && <InputComment store_id={store_id} />}
             </div>           
         </div>
     );

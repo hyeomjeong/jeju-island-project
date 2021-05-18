@@ -13,8 +13,10 @@ const Profile = (props) => {
 
     const {id, nickname, phone, email} = user;
     useEffect(async function(){
-        setUser(await getAPI('/api/v1/user?nickname=' + props.nickname));
-    }, [props.nickname])
+        console.log(props.userId);
+        setUser(await getAPI('/api/v1/user/' + props.userId));
+        console.log(user);
+    }, [props.userId])
 
 
     async function withdrawal(){

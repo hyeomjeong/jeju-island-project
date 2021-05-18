@@ -9,7 +9,7 @@ import './InputComment.css';
 const InputComment = (props) => {
     const decoded = (jwtDecode(sessionStorage.getItem('Authorization')));
     const [ comment, setComment ] = useState({
-        user_id: decoded.sub,
+        user_id: decoded.userId,
         store_id: props.store_id,
         content: "",
         score: 0,
@@ -43,6 +43,7 @@ const InputComment = (props) => {
         }
         console.log(comment);
         await postAPI("/api/v1/store/" + props.store_id + "/comment", comment);
+        props.insertComment();
         onReset();
     }
 

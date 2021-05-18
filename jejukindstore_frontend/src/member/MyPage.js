@@ -10,23 +10,30 @@ import './MyPage.css';
 
 const MyPage = (props) => {
     const {status: logStatus} = useSelector(state => state.status);
-    const [nickname, setNickname] = useState("");
+    const [id, setID] = useState(0);
 
     useEffect(() => {
         if(logStatus){
             const decoded = jwtDecode(sessionStorage.getItem('Authorization'));
-            setNickname(decoded.nickname);
+            console.log(decoded);
+            setID(decoded.userId);
+            console.log(decoded.userId);
         }
     }, [logStatus]);
 
     return(
-        logStatus && <div className="my-page">
-            <Profile nickname={nickname}/>
-            <hr className="middle-line"/>
-            <div className="my-comment-list">
-                <CommentList logName={nickname} />
-            </div>
+        <div>
+            { logStatus && 
+            <div className="my-page">
+                <Profile userId={id}/>
+                
+                <hr className="middle-line"/>
+                <div className="my-comment-list">
+                    <CommentList userId={id} />
+                </div>
+            </div>}
         </div>
+        
     );
 }
 

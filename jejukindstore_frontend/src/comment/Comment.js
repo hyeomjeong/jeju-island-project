@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // comment link to "store/store_id"
 const Comment = (props) => {
     const {status: logStatus} = useSelector(state => state.status);
-    const comment= props.comment;
+    const comment = props.comment;
     const { id, storeId, userNickName, StoreName, score, content, register_date, remove_date, update_date} = comment;
     const [nickname, setName] = useState("");
 
