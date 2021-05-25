@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux';
 
-import {getAPI} from '../common/API';
+import {getAPI, deleteAPI} from '../common/API';
 import Comment from './Comment';
 import InputComment from './InputComment';
 
@@ -13,7 +13,9 @@ const CommentList = (props) => {
     const [ comments, setComments ] = useState([]);
 
     useEffect(async function(){
-        if(store_id === "undefined"){
+        console.log(props.userId, store_id, store_id === undefined);
+        if(store_id === undefined){
+            console.log(props.userId);
             setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
         }
         else{
@@ -25,9 +27,8 @@ const CommentList = (props) => {
 
     // delete comment
     const deleteComment = (c) =>{
+        deleteAPI("/api/v1/store/" + c.storeId + "/comment/" + c.id);
         const newComments = comments.filter((element) => element !== c);
-        // deleteAPI
-        // BE에서 다시 commentList GET 해올지 / 이 배열을 수정할지 고민
         setComments(newComments);
     }
 
@@ -51,7 +52,7 @@ const CommentList = (props) => {
     return(
         <div>
             {commentList}
-            {(store_id !== "undefined" && logStatus) && <InputComment insertComment={insertComment} store_id={store_id}/>}
+            {(store_id !== undefined && logStatus) ? <InputComment insertComment={insertComment} store_id={store_id}/> : null}
         </div>
     );
 }

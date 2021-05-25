@@ -3,3 +3,12 @@
   height: 600px;
   position: relative;
 }
+
+.store-info-window {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.store-title {
+}

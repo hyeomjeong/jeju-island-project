@@ -15,23 +15,26 @@ const MyPage = (props) => {
     useEffect(() => {
         if(logStatus){
             const decoded = jwtDecode(sessionStorage.getItem('Authorization'));
-            console.log(decoded);
+            // console.log(decoded);
             setID(decoded.userId);
-            console.log(decoded.userId);
+            console.log(id);
         }
     }, [logStatus]);
 
     return(
         <div>
-            { logStatus && 
+            { logStatus && id !== 0 ?  
             <div className="my-page">
+                
                 <Profile userId={id}/>
                 
                 <hr className="middle-line"/>
+                 
                 <div className="my-comment-list">
                     <CommentList userId={id} />
                 </div>
-            </div>}
+                
+            </div> : null}
         </div>
         
     );

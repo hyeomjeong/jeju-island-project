@@ -1,7 +1,8 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
+import {getAPI} from '../common/API';
 import CheckBox from './CheckBox';
 import './SearchBox.css';
 
@@ -11,8 +12,23 @@ import DownIcon from '@material-ui/icons/ExpandMore';
 
 const SearchBox = (props) => {
 
-    const [isChecked, setCheck] = useState(false);
-    const [inputs, setInputs] = useState([]); 
+    const [ isChecked, setCheck ] = useState(false);
+    const [ inputs, setInputs ] = useState([]); 
+    const [ category, setCategory ] = useState([]);
+    const [ location, setLocation ] = useState([]);
+
+    useEffect(() => {
+        console.log("useEffect");
+        const setArr = async() => {
+            const temp_c = await getAPI("/api/v1/store/category");
+            const temp_l = await getAPI("/api/v1/store/location");
+            setCategory(temp_c);
+            setLocation(temp_l);
+        }
+
+        setArr();
+    }, []);
+
     console.log(inputs);
     const onChange = (e) => {
         if(e.target.checked){
@@ -35,8 +51,7 @@ const SearchBox = (props) => {
     const removeAll = () => {
         setInputs([]);
     }
-
-    
+ 
     const btnList = inputs.map((info, index) => 
         <button className="tag-btn" key={index} onClick={() => {removeInput(info)}} name={info}>#{info}</button>
     );
@@ -59,12 +74,6 @@ const SearchBox = (props) => {
         </div>
     );
 }
-
-
-SearchBox.defaultProps = {
-    category: ["한식", "중식", "양식", "일식", "숙박", "이미용", "4점이상"],
-    location: ["옥계동", "거의동", "양호동", "한남동", "양포동", "산동", "인동", "사수동", "금은동"]
-};
 
 export default SearchBox;
 

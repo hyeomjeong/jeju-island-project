@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 import './Map.css';
 
@@ -25,7 +25,7 @@ const Map = ({stores}) => {
         var clusterer = new kakao.maps.MarkerClusterer({
             map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
             averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-            minLevel: 10, // 클러스터 할 최소 지도 레벨
+            minLevel: 8, // 클러스터 할 최소 지도 레벨
             disableClickZoom: true // click 시 zoom option 
         });
 
@@ -42,8 +42,25 @@ const Map = ({stores}) => {
 
     }, [stores]);
 
+
+    const createInfowin = (data) => {
+        // padding: 2% 0 2% 29%; 
+        const div_style = "width: 100%;" + 
+        "padding: 2% 0 2% 29%; " +
+        "display: flex;" + 
+        "flex-direction: column;" + 
+        "align-items: center;" + 
+        "justify-content: center; ";
+
+        const title_style = "font-weight: bold;"
+        
+        return '<div style="'+ div_style +'"><p style="'+ title_style +'">' + data.name +'</p> <p>#' + data.category + ' #' + data.location +'</p></div>';
+    }
+
+
     const createMarker = (data, myMap) => {
         // console.log(data);
+
         let marker = new kakao.maps.Marker({
             position : new kakao.maps.LatLng(data.latitude, data.longitude),
             // image: markerImage
@@ -53,7 +70,7 @@ const Map = ({stores}) => {
         // marker.setMap(myMap);
 
         let infowindow = new kakao.maps.InfoWindow({
-            content : '<div style=padding:5px;>' + data.id + '</div>'
+            content : createInfowin(data),
         })
 
         // 마커에 마우스오버 이벤트를 등록합니다

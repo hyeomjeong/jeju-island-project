@@ -8,6 +8,7 @@ import './InputComment.css';
 
 const InputComment = (props) => {
     const decoded = (jwtDecode(sessionStorage.getItem('Authorization')));
+    // console.log(props.location.state.comment);
     const [ comment, setComment ] = useState({
         user_id: decoded.userId,
         store_id: props.store_id,

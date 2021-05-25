@@ -1,23 +1,24 @@
 
-import React, {useState, useEffect} from 'react';
-
+import React, {useState, useEffect, useMemo} from 'react';
+import {getAPI} from '../common/API';
 
 const CheckBox = (props) => {
+    console.log(props);
     const [inputs, setInputs] = useState(props.inputs);
-
+    
     useEffect(() => {
         setInputs(props.inputs);
     }, [props.inputs]);
 
-    const category = props.category;
     const location = props.location;
+    const category = props.category;
 
-    const categoryBoxies = category.map(
+    const categoryBoxies = useMemo(() => category.map(
         (info, index) => 
         <div key={index}>
             <input checked={inputs.includes(info)} id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
         </div>
-    );
+    ), [category]);
     const locationBoxies = location.map(
         (info, index) => 
         <div key={index}>
