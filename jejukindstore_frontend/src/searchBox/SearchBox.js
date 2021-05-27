@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {getAPI} from '../common/API';
 import CheckBox from './CheckBox';
@@ -11,37 +11,28 @@ import DownIcon from '@material-ui/icons/ExpandMore';
 
 
 const SearchBox = (props) => {
-
+    const history = useHistory();
     const [ isChecked, setCheck ] = useState(false);
     const [ inputs, setInputs ] = useState([]); 
-    const [ category, setCategory ] = useState([]);
-    const [ location, setLocation ] = useState([]);
 
-    useEffect(() => {
-        console.log("useEffect");
-        const setArr = async() => {
-            const temp_c = await getAPI("/api/v1/store/category");
-            const temp_l = await getAPI("/api/v1/store/location");
-            setCategory(temp_c);
-            setLocation(temp_l);
-        }
-
-        setArr();
-    }, []);
-
-    console.log(inputs);
+    // console.log(inputs);
     const onChange = (e) => {
+        console.log(e.target);
         if(e.target.checked){
-            setInputs(inputs.concat(e.target.name));
+            setInputs(inputs.concat({
+                name: e.target.name,
+                value: e.target.value
+            }));
         }
         else
-            removeInput(e.target.name);
+            removeInput(e.target.value);
     };
 
-    const removeInput = (name) => {
+    const removeInput = (value) => {
         const tempInputs = inputs.slice();
+        console.log(tempInputs);
         const idx = tempInputs.findIndex(function(item) {
-            return item === name
+            return item.value === value
         });
         if(idx > -1)
             tempInputs.splice(idx, 1);
@@ -53,9 +44,24 @@ const SearchBox = (props) => {
     }
  
     const btnList = inputs.map((info, index) => 
-        <button className="tag-btn" key={index} onClick={() => {removeInput(info)}} name={info}>#{info}</button>
+        <button className="tag-btn" key={index} onClick={() => {removeInput(info.value)}} name={info.value}>#{info.value}</button>
     );
    
+    const search = async() => {
+        const params = {};
+        inputs.map((info) => 
+            params[info.name] === undefined ? params[info.name] = [info.value] : params[info.name].push(info.value)
+        );
+        
+        // console.log(params);
+        history.push({
+            pathname: "/store_list",
+            state: {params: params},
+        })
+        // console.log(stores);
+        
+    }
+
     return(
         <div className="search">
             <div className="search-box">
@@ -65,10 +71,10 @@ const SearchBox = (props) => {
                 <button className="detail-search-btn" onClick={() => {setCheck(!isChecked)}}>{isChecked? <UpIcon /> : <DownIcon />}</button>
             </div>
             { isChecked && <div>
-                <CheckBox inputs={inputs} onChange={onChange} category={props.category} location={props.location}/>
+                <CheckBox inputs={inputs} onChange={onChange} category={props.category} local={props.local}/>
                 <div className="search-btns">
                     <button className="margin-btn" onClick={removeAll}>REMOVE ALL</button>
-                    <button><Link to="/store/id" className="links">SEARCH</Link></button>
+                    <button onClick={search}>SEARCH</button>
                 </div>  
             </div>}
         </div>

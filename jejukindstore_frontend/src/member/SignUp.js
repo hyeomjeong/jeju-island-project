@@ -88,7 +88,7 @@ const SignUp = (props) =>{
         }
 
         // 중복 확인 
-        if(!await headAPI("/api/v1/user?"+name+"="+value)){
+        if(await headAPI("/api/v1/user", {name: value})){
             
             setCheck({
                 ...check, [name]: true

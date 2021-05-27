@@ -1,29 +1,47 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {getAPI, deleteAPI} from '../common/API';
 
 const Profile = (props) => {
+    const history = useHistory();
+    const userId= props.userId;
     const [user, setUser] = useState({
         id: "",
         nickname: "",
+        password: "",
         phone: "",
         email: ""
     });
 
-    const {id, nickname, phone, email} = user;
-    useEffect(async function(){
-        console.log(props.userId);
-        setUser(await getAPI('/api/v1/user/' + props.userId));
-        console.log(user);
-    }, [props.userId])
+    const {id, nickname, password, phone, email} = user;
+
+    useEffect(() => {
+        const getUser = async() => {
+            console.log(userId);
+            setUser(await getAPI('/api/v1/user/' + userId));
+            console.log(user);
+        }
+        getUser();
+    }, [props.userId]);
 
 
     async function withdrawal(){
-        if (await deleteAPI('/api/v1/user' + id)){
+        if (await deleteAPI('/api/v1/user' + userId)){
             alert("탈퇴가 완료되었습니다.");
             props.history.push('/');
         }
+    }
+
+    const update = () => {
+        console.log(user);
+        history.push({
+            pathname: "/member/modify",
+            state: {
+                member: user, 
+                userId: userId
+            }
+        })
     }
 
     return(
@@ -48,7 +66,7 @@ const Profile = (props) => {
                     </div>
                 </div>
 
-                <button className="modify-btn"><Link to="/member/modify" className="links">수정</Link></button>
+                <button className="modify-btn" onClick={update}>수정</button>
                 <button onClick={withdrawal}>회원탈퇴</button>
             </div>
     );

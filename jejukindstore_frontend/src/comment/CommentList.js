@@ -10,20 +10,22 @@ const CommentList = (props) => {
     const store_id = props.store_id;
     const { status: logStatus } = useSelector((state) => state.status);
     // const [flag, setFlag] = useState(true);
-    const [ comments, setComments ] = useState([]);
+    const [ comments, setComments ] = useState(props.data);
 
-    useEffect(async function(){
-        console.log(props.userId, store_id, store_id === undefined);
-        if(store_id === undefined){
-            console.log(props.userId);
-            setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
+    useEffect(() => {
+        const getComments = async() => {
+            // console.log(props.userId, store_id, store_id === undefined);
+            if(store_id === undefined){
+                // console.log(props.userId);
+                setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
+            }
+            else{
+                setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
+                // console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
+            }
         }
-        else{
-            setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
-            console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
-        }
-    }
-    ,[logStatus]);
+        getComments();
+    },[logStatus]);
 
     // delete comment
     const deleteComment = (c) =>{

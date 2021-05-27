@@ -17,9 +17,16 @@ const Header = (props) => {
     const dispatch = useDispatch();
     const { status: logStatus } = useSelector((state) => state.status);
     const [nickname, setNickname] = useState("");
+
+    const [category, setCategory] = useState([]);
+    const [local, setLocal] = useState([]);
+
     // console.log(logStatus);
-    useEffect(async function(){
-        // get User info
+    useEffect(() => {
+        const getHeaderInfo = async() => {
+            setCategory(await getAPI("/api/v1/store/category"));
+            setLocal(await getAPI("/api/v1/store/local"));
+        }
         if(logStatus){
             console.log("HEADER");
             // console.log(sessionStorage.getItem('Authorization'));
@@ -27,6 +34,7 @@ const Header = (props) => {
             setNickname(decoded.nickname);
             // console.log(decoded);
         }
+        getHeaderInfo();
     }
     , [logStatus]);
 
@@ -42,7 +50,7 @@ const Header = (props) => {
                 <button><Link to="/" className="links">🧚‍♂️JEJU-KIND-STORE🍊</Link></button>
             </div>
             <div className="common-header item">
-                <SearchBox />
+                <SearchBox local={local} category={category} />
             </div>
             <div className="common-header item">
             { logStatus ? 

@@ -3,26 +3,27 @@ import React, {useState, useEffect, useMemo} from 'react';
 import {getAPI} from '../common/API';
 
 const CheckBox = (props) => {
-    console.log(props);
+    // console.log(props);
     const [inputs, setInputs] = useState(props.inputs);
     
+    const category = props.category;
+    const local = props.local;
+
     useEffect(() => {
         setInputs(props.inputs);
     }, [props.inputs]);
 
-    const location = props.location;
-    const category = props.category;
-
-    const categoryBoxies = useMemo(() => category.map(
+    // console.log(inputs.findIndex(i => i.value === "일식"));
+    const categoryBoxies = category.map(
         (info, index) => 
         <div key={index}>
-            <input checked={inputs.includes(info)} id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
+            <input checked={inputs.findIndex(idx => idx.value === info) !== -1} id={info} value={info} type="checkbox" name="category" onChange={props.onChange}></input> {info}
         </div>
-    ), [category]);
-    const locationBoxies = location.map(
+    );
+    const locationBoxies = local.map(
         (info, index) => 
         <div key={index}>
-            <input checked={inputs.includes(info)} id={info} type="checkbox" name={info} onChange={props.onChange}></input> {info}
+            <input checked={inputs.findIndex(idx => idx.value === info) !== -1} id={info} value={info} type="checkbox" name="local" onChange={props.onChange}></input> {info}
         </div>
     );
 

@@ -4,11 +4,9 @@ import { getAPI } from '../common/API';
 import '../common/common.css';
 import './Store.css';
 
+import StoreInfo from './StoreInfo';
 import MenuList from './menu/MenuList';
-
 import CommentList from '../comment/CommentList';
-
-import Score from './Score';
 
 // function 
 const Store = (props) =>{
@@ -21,24 +19,17 @@ const Store = (props) =>{
         address: "",
         category: "",
     });
-    const { name, id, telephone, address, local, category } = store_info;
 
-    useEffect(async function(){
-        setStoreInfo(await getAPI("/api/v1/store/" + store_id));
+    useEffect(() => {
+        const getStore = async() => {
+            setStoreInfo(await getAPI("/api/v1/store/" + store_id));
+        }
+        getStore();
     }, [store_id]);
 
     return(
         <div className="store-info">
-            <div className="store-detail-info">
-                <h1 className="store-name">{name}</h1>
-                <Score font="material-icons md-24" data={5}/>
-                <p className="store-phone">{telephone}</p>
-                <p className="store-address">{address}</p>
-                <div className="tags">
-                    <button>{local}</button>
-                    <button>{category}</button>
-                </div>
-            </div>
+            <StoreInfo data={store_info}/>
             <hr className="middle-line"></hr>
             <div className="menu-info-list">
                 <MenuList store_id={store_id} />
