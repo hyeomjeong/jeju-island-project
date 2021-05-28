@@ -17,7 +17,7 @@ const SearchBox = (props) => {
 
     // console.log(inputs);
     const onChange = (e) => {
-        console.log(e.target);
+        // console.log(e.target);
         if(e.target.checked){
             setInputs(inputs.concat({
                 name: e.target.name,
@@ -30,7 +30,7 @@ const SearchBox = (props) => {
 
     const removeInput = (value) => {
         const tempInputs = inputs.slice();
-        console.log(tempInputs);
+        // console.log(tempInputs);
         const idx = tempInputs.findIndex(function(item) {
             return item.value === value
         });
@@ -59,6 +59,8 @@ const SearchBox = (props) => {
             state: {params: params},
         })
         // console.log(stores);
+
+        removeAll();
         
     }
 

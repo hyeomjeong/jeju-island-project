@@ -15,15 +15,15 @@ const Comment = (props) => {
     const comment = props.comment;
     const history = useHistory();
     // console.log(props);
-    const { id, storeId, userNickName, StoreName, score, content, register_date, remove_date, update_date} = comment;
+    const { id, storeId, userNickName, storeName, score, content, register_date, remove_date, update_date} = comment;
     const nickname = logStatus ? jwtDecode(sessionStorage.getItem('Authorization')).nickname : "" ;
-
+    console.log(comment);
     return(
-        (remove_date !== "") && <div className="comment">
+        (remove_date === null) && <div className="comment">
             
             <div className="flex-row">
-            {StoreName !== undefined ? 
-                    <Link to="/" className="store-link">{StoreName}</Link>
+            {storeName !== undefined ? 
+                    <Link to="/" className="store-link">{storeName}</Link>
                     : 
                     <p className="comment-name">{userNickName}</p>}
             
@@ -32,7 +32,7 @@ const Comment = (props) => {
             </div>
             
             </div>
-            <p className="comment-date">{update_date === "" ? register_date : update_date}</p>
+            <p className="comment-date">{update_date === null ? register_date : update_date}</p>
             <p className="comment-content">{content}</p>
             
             { nickname === userNickName && 

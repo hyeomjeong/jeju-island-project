@@ -40,6 +40,7 @@ const Header = (props) => {
 
     const signOut =  () => {
         sessionStorage.clear();
+        console.log(sessionStorage.getItem('Authorization'));
         dispatch(actions.signOut());
         setNickname("");
     }

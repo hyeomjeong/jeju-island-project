@@ -3,14 +3,20 @@ import axios from 'axios';
 axios.defaults.paramsSerializer = function(paramObj) {
     const params = new URLSearchParams()
     for (const key in paramObj) {
-        // console.log(key, paramObj[key])
-        for (const value in paramObj[key]){
-            params.append(key, paramObj[key][value])
-        }
-    }
+        //console.log(key, paramObj[key], typeof paramObj[key])
+        if (typeof paramObj[key] === "object"){
 
-    return params.toString()
+            for (const value in paramObj[key]){
+                params.append(key, paramObj[key][value]);
+            }  
+        }
+        else
+            params.append(key, paramObj[key]);
+    }
+    //console.log(params.toString());
+    return params.toString();
 }
+
 const httpInstance = axios.create({ 
     baseURL: process.env.REACT_APP_BACK_END_URL, 
     timeout: 10000000, 
@@ -23,6 +29,9 @@ const httpInstance = axios.create({
 
 if (sessionStorage.getItem('Authorization') !== "undefined"){
     httpInstance.defaults.headers.common.Authorization = `Bearer ${sessionStorage.getItem('Authorization')}`;
+}
+else {
+    httpInstance.defaults.headers.common.Authorization = ``;
 }
 
 
@@ -48,7 +57,7 @@ export function headAPI(url, data=null){
         params: data
     })
     .then((Response) => {
-        // console.log(Response);
+        //console.log(Response);
         if (Response.status === 204)
             return false;
         else 
@@ -64,7 +73,7 @@ export function postAPI(url, data){
     return httpInstance.post(url, data)
     .then((Response) => {
         if (Response.status === 200){
-            console.log(Response);
+            // console.log(Response);
             return Response.data;
         }
     })

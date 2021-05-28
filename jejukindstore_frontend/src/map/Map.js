@@ -54,7 +54,7 @@ const Map = ({stores}) => {
 
         const title_style = "font-weight: bold;"
         
-        return '<div style="'+ div_style +'"><p style="'+ title_style +'">' + data.name +'</p> <p>#' + data.category + ' #' + data.location +'</p></div>';
+        return '<div style="'+ div_style +'"><p style="'+ title_style +'">' + data.name +'</p> <p>#' + data.category + ' #' + data.local +'</p></div>';
     }
 
 

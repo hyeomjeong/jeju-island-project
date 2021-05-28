@@ -46,7 +46,7 @@ const Modify = (props) => {
     
     const checkOverlap = async(e) => {
         const {name, value} = e.target;
-
+        console.log(newInfo[name] ,preInfo[name]);
         if(newInfo[name] === preInfo[name]){
             setCheck({
                 ...check, [name]: true
@@ -75,9 +75,9 @@ const Modify = (props) => {
             });
             return;
         }
-
+        // http://218.157.164.199:5959/api/v1/user?id=test
         // 중복 확인 
-        if(await headAPI("/api/v1/user", {name: value})){
+        if(!await headAPI("/api/v1/user", {[name]: value})){
             
             setCheck({
                 ...check, [name]: true
@@ -107,25 +107,25 @@ const Modify = (props) => {
             <h3>프로필 수정</h3>
             <div className="flex-col">
                 <p className="input-name">닉네임</p>
-                <input name="nickname" value={nickname} onChange={onChange}/>
+                <input name="nickname" value={nickname} onChange={onChange} onBlur={checkOverlap}/>
                 <p className={check.nickname? "collect-msg" : "warning-msg"}>{ nickname === "" ? "필수 정보입니다." : ( check.nickname ? "좋아유" : "이미 사용중입니다.")}</p>
             
                 </div>
             
             <div className="flex-col">
                 <p className="input-name">비밀번호</p>
-                <input name="password" type="password" value={password} onChange={onChange}/>
+                <input name="password" type="password" value={password} onChange={onChange} onBlur={checkOverlap}/>
                 </div>
             
             <div className="flex-col">
                 <p className="input-name">휴대폰</p>
-                <input name="phone" value={phone} onChange={onChange}/>
+                <input name="phone" value={phone} onChange={onChange} onBlur={checkOverlap}/>
                 <p className={check.phone? "collect-msg" : "warning-msg"}>{ phone === "" ? "필수 정보입니다." : ( check.phone ? null : "이미 사용중이거나 형식에 맞지 않는 번호입니다.")}</p>
             </div>
             
             <div className="flex-col">
                 <p className="input-name">이메일</p>
-                <input name="email" value={email} onChange={onChange}/>
+                <input name="email" value={email} onChange={onChange} onBlur={checkOverlap}/>
                 <p className={check.email? "collect-msg" : "warning-msg"}>{ email === "" ? "필수 정보입니다." : ( check.email ? null : "이미 사용중이거나 형식에 맞지 않는 이메일입니다.")}</p>
             </div>
             <button onClick={modify}>수정</button>
