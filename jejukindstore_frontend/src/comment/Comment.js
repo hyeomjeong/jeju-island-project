@@ -37,8 +37,8 @@ const Comment = (props) => {
             
             { nickname === userNickName && 
                     <div className="comment-btns" >
-                        <SettingsIcon onClick={() => {history.push({pathname: "/comment", state: {comment}, })}}></SettingsIcon>
-                        <DeleteIcon onClick={() => {props.deleteComment(comment)}}/>
+                        <div title="수정"><SettingsIcon onClick={() => {history.push({pathname: "/comment", state: {comment}, })}} /></div>
+                        <div title="삭제"><DeleteIcon onClick={() => {props.deleteComment(comment)}} /></div>
                     </div>}
             <hr className="thin-line"></hr>
         </div>

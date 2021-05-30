@@ -87,9 +87,14 @@ export function deleteAPI(url){
     return httpInstance.delete(url)
     .then(function (Response) {
         console.log(Response);
+        if (Response.status === 200){
+            // console.log(Response);
+            return true;
+        }
     })
     .catch(function (error){
         console.log(error);
+        return false;
     })
     .then(function() {
 

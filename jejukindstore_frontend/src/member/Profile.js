@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
+import * as actions from '../actions/status';
 import {getAPI, deleteAPI} from '../common/API';
 
 const Profile = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const userId= props.userId;
     const [user, setUser] = useState({
         id: "",
@@ -27,7 +30,9 @@ const Profile = (props) => {
 
 
     async function withdrawal(){
-        if (await deleteAPI('/api/v1/user' + userId)){
+        if (await deleteAPI('/api/v1/user/' + userId)){
+            sessionStorage.clear();
+            dispatch(actions.signOut());
             alert("탈퇴가 완료되었습니다.");
             props.history.push('/');
         }
