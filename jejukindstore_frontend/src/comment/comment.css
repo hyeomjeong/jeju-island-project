@@ -12,8 +12,8 @@
 
 .store-link {
   color: black;
-  text-decoration: none;
   font-weight: bold;
+  margin-top: 0.5%;
   margin-right: 0.5%;
 }
 .comment-name {

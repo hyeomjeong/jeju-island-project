@@ -14,16 +14,23 @@ const Comment = (props) => {
     const { status: logStatus } = useSelector((state) => state.status);
     const comment = props.comment;
     const history = useHistory();
-    // console.log(props);
+
     const { id, storeId, userNickName, storeName, score, content, register_date, remove_date, update_date} = comment;
     const nickname = logStatus ? jwtDecode(sessionStorage.getItem('Authorization')).nickname : "" ;
-    console.log(comment);
+    
+    const linkToStore = () => {
+        history.push({
+            pathname: '/store',
+            state: {id: storeId}
+        });
+    }
+
     return(
         (remove_date === null) && <div className="comment">
             
             <div className="flex-row">
             {storeName !== undefined ? 
-                    <Link to="/" className="store-link">{storeName}</Link>
+                    <p className="store-link" onClick={linkToStore}>{storeName}</p>
                     : 
                     <p className="comment-name">{userNickName}</p>}
             
@@ -45,4 +52,18 @@ const Comment = (props) => {
     );
 }
 
+Comment.defaultProps = {
+    comment : [
+        {
+            content: "",
+            id: 0,
+            register_date: "",
+            remove_date: "",
+            score: 0,
+            storeId: "",
+            update_date: "",
+            userNickName : ""
+        }
+    ]
+};
 export default Comment;

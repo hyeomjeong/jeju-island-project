@@ -10,20 +10,21 @@ const CommentList = (props) => {
     const store_id = props.store_id;
     const { status: logStatus } = useSelector((state) => state.status);
     // const [flag, setFlag] = useState(true);
-    const [ comments, setComments ] = useState(props.data);
+    const [ comments, setComments ] = useState([]);
+    
+    const getComments = async() => {
+        // console.log(props.userId, store_id, store_id === undefined);
+        if(store_id === undefined){
+            // console.log(props.userId);
+            setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
+        }
+        else{
+            setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
+            // console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
+        }
+    }
 
     useEffect(() => {
-        const getComments = async() => {
-            // console.log(props.userId, store_id, store_id === undefined);
-            if(store_id === undefined){
-                // console.log(props.userId);
-                setComments(await getAPI("/api/v1/user/"+props.userId+"/comment"));
-            }
-            else{
-                setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
-                // console.log(store_id, await getAPI("/api/v1/store/"+store_id+"/comment"));
-            }
-        }
         getComments();
     },[logStatus]);
 
@@ -39,9 +40,8 @@ const CommentList = (props) => {
         // setComments(newComments);
     }
 
-    async function insertComment(){
-        setComments(await getAPI("/api/v1/store/"+store_id+"/comment"));
-        console.log(comments);
+    const insertComment = () => {
+        getComments();
     }
 
     const commentList = comments.map(
@@ -58,20 +58,5 @@ const CommentList = (props) => {
         </div>
     );
 }
-
-CommentList.defaultProps = {
-    data : [
-        {
-            content: "",
-            id: 0,
-            register_date: "",
-            remove_date: "",
-            score: 0,
-            storeId: "",
-            update_date: "",
-            userNickName : ""
-        }
-    ]
-};
 
 export default CommentList;

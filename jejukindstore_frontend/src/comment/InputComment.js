@@ -22,10 +22,18 @@ const InputComment = (props) => {
 
     const onReset = () => {
         setComment({
+            ...comment,
             score: 0,
             content: ""
         });
     };
+
+    const connect = async() => {
+        console.log(comment);
+        await postAPI("/api/v1/store/" + props.store_id + "/comment", comment);
+        props.insertComment();
+        onReset();
+    }
 
     const handleKeyPress = (e) => {
         if (e.key === "Enter"){
@@ -33,7 +41,7 @@ const InputComment = (props) => {
         }
     }
 
-    async function insertComment(){
+    const insertComment = () => {
         if(comment.content === ""){
             alert("내용을 입력하십시오!!");
             return;
@@ -42,10 +50,7 @@ const InputComment = (props) => {
             alert("별점을 입력해주세요!! (0.5 ~ 5)");
             return;
         }
-        console.log(comment);
-        await postAPI("/api/v1/store/" + props.store_id + "/comment", comment);
-        props.insertComment();
-        onReset();
+        connect();
     }
 
     // const [hoverRating, setHoverRating] = useState(0);

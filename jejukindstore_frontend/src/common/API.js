@@ -27,17 +27,22 @@ const httpInstance = axios.create({
     
 });
 
-if (sessionStorage.getItem('Authorization') !== "undefined"){
-    httpInstance.defaults.headers.common.Authorization = `Bearer ${sessionStorage.getItem('Authorization')}`;
+
+const setToken = () => {
+    // console.log(sessionStorage.getItem('Authorization'));
+    if (sessionStorage.getItem('Authorization') !== "undefined"){
+        httpInstance.defaults.headers.common.Authorization = `Bearer ${sessionStorage.getItem('Authorization')}`;
+    }
+    else {
+        httpInstance.defaults.headers.common.Authorization = ``;
+    }
 }
-else {
-    httpInstance.defaults.headers.common.Authorization = ``;
-}
+
 
 
 export function getAPI(url, data=null){
     // console.log(data);
-
+    setToken();
     return httpInstance.get(url, {
         params: data
     })
@@ -52,6 +57,8 @@ export function getAPI(url, data=null){
 }
 
 export function headAPI(url, data=null){
+    
+    setToken();
     // console.log(data);
     return httpInstance.head(url, {
         params: data
@@ -70,10 +77,13 @@ export function headAPI(url, data=null){
 }
 
 export function postAPI(url, data){
+    
+    setToken();
+    console.log(data);
     return httpInstance.post(url, data)
     .then((Response) => {
         if (Response.status === 200){
-            // console.log(Response);
+            console.log(Response);
             return Response.data;
         }
     })
@@ -84,9 +94,11 @@ export function postAPI(url, data){
 }
 
 export function deleteAPI(url){
+    
+    setToken();
     return httpInstance.delete(url)
     .then(function (Response) {
-        console.log(Response);
+        // console.log(Response);
         if (Response.status === 200){
             // console.log(Response);
             return true;
@@ -95,13 +107,12 @@ export function deleteAPI(url){
     .catch(function (error){
         console.log(error);
         return false;
-    })
-    .then(function() {
-
     });
 }
 
 export function putAPI(url, data){
+    
+    setToken();
     httpInstance.put(url, data)
     .then((Response) => {
         console.log(Response);

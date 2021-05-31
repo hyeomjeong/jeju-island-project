@@ -34,7 +34,7 @@ const Profile = (props) => {
             sessionStorage.clear();
             dispatch(actions.signOut());
             alert("탈퇴가 완료되었습니다.");
-            props.history.push('/');
+            history.push('/');
         }
     }
 
